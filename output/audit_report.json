@@ -1,0 +1,513 @@
+{
+  "report_generated": "2026-03-01T16:30:24.607750",
+  "summary": {
+    "files_scanned": 4,
+    "total_candidates": 33,
+    "confirmed_findings": 1,
+    "false_positives_eliminated": 32,
+    "findings_with_working_poc": 0,
+    "severity_breakdown": {
+      "CRITICAL": 0,
+      "HIGH": 0,
+      "MEDIUM": 1,
+      "LOW": 0
+    },
+    "vulnerable_dependencies": 14,
+    "nim_api_calls": 0
+  },
+  "findings": [
+    {
+      "id": "0b66ff93",
+      "filename": "app/static/loader.js",
+      "vuln_type": "Insecure Randomness",
+      "severity": "MEDIUM",
+      "location": "line 58",
+      "reasoning": "Math.random() is not cryptographically secure",
+      "cwe_id": "CWE-338",
+      "raw_code": "K.f.repeat=String.prototype.repeat?function(b,c){return b.repeat(c)}:function(b,c){return Array(c+1).join(b)};K.f.Ds=function(b,c,d){b=K.P(d)?b.toFixed(d):String(b);d=b.indexOf(\".\");-1==d&&(d=b.length);return K.f.repeat(\"0\",Math.max(0,c-d))+b};K.f.Mk=function(b){return null==b?\"\":String(b)};K.f.Pp=function(b){return Array.prototype.join.call(arguments,\"\")};K.f.ir=function(){return Math.floor(2147483648*Math.random()).toString(36)+Math.abs(Math.floor(2147483648*Math.random())^K.now()).toString(36\n... [truncated]",
+      "validation_status": "CONFIRMED",
+      "poc_code": "// Create a function to predict the value of Math.random()\nfunction predictRandom() {\n  // The vulnerable code uses a seed value of 2147483648\n  var seed = 2147483648;\n  // The algorithm used by Math.random() is based on the XORShift algorithm\n  // We can predict the next value by XORing the current value with the seed\n  var current = Math.floor(seed * Math.random());\n  var next = current ^ seed;\n  return next;\n}\n\n// Create a function to predict the value of K.f.Jl\nfunction predictJl() {\n  // The vulnerable code uses a counter to generate unique IDs\n  // We can predict the next value by incrementing the current value\n  var current = K.f.Jl;\n  var next = current + 1;\n  return next;\n}\n\n// Create a function to exploit the vulnerability\nfunction exploitVulnerability() {\n  // Predict the value of Math.random()\n  var predictedRandom = predictRandom();\n  // Predict the value of K.f.Jl\n  var predictedJl = predictJl();\n  // Use the predicted values to generate a predictable ID\n  var predictableId = \"goog_\" + predictedJl;\n  return predictableId;\n}\n\n// Test the exploit\nconsole.log(exploitVulnerability());",
+      "poc_result": "SANDBOX_ERROR",
+      "classification": {
+        "raw": "Here's the vulnerability classification in JSON format:\n\n```json\n{\n  \"CWE-ID\": \"CWE-338\",\n  \"CWE-Name\": \"Use of Cryptographically Weak Pseudo-Random Number Generator (PRNG)\",\n  \"CVSS-v3.1-Score\": \"5.5\",\n  \"CVSS-v3.1-Vector\": \"CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N\",\n  \"Severity\": \"MEDIUM\",\n  \"Remediation\": {\n    \"Code-Snippet\": \"K.f.ir = function() {\n      return crypto.getRandomValues(new Uint32Array(1))[0].toString(36) +\n             crypto.getRandomValues(new Uint32Array(1))[0].toString(36);\n    }\",\n    \"Explanation\": \"Replace Math.random() with crypto.getRandomValues() to generate cryptographically secure random numbers.\"\n  },\n  \"References\": [\n    {\n      \"Title\": \"OWASP - Insecure Randomness\",\n      \"Link\": \"https://owasp.org/www-project-top-ten/2017/A9_2017-Insecure_Domains_and_Technologies.html\"\n    },\n    {\n      \"Title\": \"NIST - Random Number Generation\",\n      \"Link\": \"https://csrc.nist.gov/publications/detail/sp/800-90a/rev-1/final\"\n    }\n  ]\n}\n```\n\nNote: The remediation code snippet uses the `crypto.getRandomValues()` function, which is available in modern browsers and Node.js environments. If you need to support older environments, you may need to use a different library or implementation."
+      },
+      "remediation": "  \"Remediation\": {\n    \"Code-Snippet\": \"K.f.ir = function() {\n      return crypto.getRandomValues(new Uint32Array(1))[0].toString(36) +\n             crypto.getRandomValues(new Uint32Array(1))[0].toString(36);\n    }\",\n    \"Explanation\": \"Replace Math.random() with crypto.getRandomValues() to generate cryptographically secure random numbers.\"\n  },\n  \"References\": [\n    {\n      \"Title\": \"OWASP - Insecure Randomness\",\n      \"Link\": \"https://owasp.org/www-project-top-ten/2017/A9_2017-Insecure_Domains_and_Technologies.html\"\n    },\n    {\n      \"Title\": \"NIST - Random Number Generation\",\n      \"Link\": \"https://csrc.nist.gov/publications/detail/sp/800-90a/rev-1/final\"\n    }\n  ]\n}\n```\n\nNote: The remediation code snippet uses the `crypto.getRandomValues()` function, which is available in modern browsers and Node.js environments. If you need to support older environments, you may need to use a different library or implementation.",
+      "timestamp": "2026-03-01T16:26:12.697505"
+    }
+  ],
+  "vulnerable_dependencies": {
+    "certifi": [
+      {
+        "id": "GHSA-xqr8-7jwr-rhp7",
+        "summary": "Removal of e-Tugra root certificate",
+        "severity": "HIGH"
+      },
+      {
+        "id": "PYSEC-2023-135",
+        "summary": "",
+        "severity": "UNKNOWN"
+      }
+    ],
+    "Flask": [
+      {
+        "id": "GHSA-562c-5r94-xh97",
+        "summary": "Flask is vulnerable to Denial of Service via incorrect encoding of JSON data",
+        "severity": "HIGH"
+      },
+      {
+        "id": "GHSA-5wv5-4vpf-pj6m",
+        "summary": "Pallets Project Flask is vulnerable to Denial of Service via Unexpected memory usage",
+        "severity": "HIGH"
+      },
+      {
+        "id": "GHSA-68rp-wp8r-4726",
+        "summary": "Flask session does not add `Vary: Cookie` header when accessed in some ways",
+        "severity": "LOW"
+      },
+      {
+        "id": "GHSA-m2qf-hxjv-5gpq",
+        "summary": "Flask vulnerable to possible disclosure of permanent session cookie due to missing Vary: Cookie header",
+        "severity": "HIGH"
+      },
+      {
+        "id": "PYSEC-2018-66",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2019-179",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2023-62",
+        "summary": "",
+        "severity": "UNKNOWN"
+      }
+    ],
+    "gevent": [
+      {
+        "id": "GHSA-x7m3-jprg-wc5g",
+        "summary": "Gevent allows remote attacker to escalate privileges",
+        "severity": "CRITICAL"
+      },
+      {
+        "id": "PYSEC-2023-177",
+        "summary": "",
+        "severity": "UNKNOWN"
+      }
+    ],
+    "idna": [
+      {
+        "id": "GHSA-jjg7-2v4v-x38h",
+        "summary": "Internationalized Domain Names in Applications (IDNA) vulnerable to denial of service from specially crafted inputs to idna.encode",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "PYSEC-2024-60",
+        "summary": "",
+        "severity": "UNKNOWN"
+      }
+    ],
+    "Jinja2": [
+      {
+        "id": "GHSA-462w-v97r-4m45",
+        "summary": "Jinja2 sandbox escape via string formatting",
+        "severity": "HIGH"
+      },
+      {
+        "id": "GHSA-cpwx-vrp4-4pq7",
+        "summary": "Jinja2 vulnerable to sandbox breakout through attr filter selecting format method",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-g3rq-g295-4j3m",
+        "summary": "Regular Expression Denial of Service (ReDoS) in Jinja2",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-h5c8-rqwp-cp95",
+        "summary": "Jinja vulnerable to HTML attribute injection when passing user input as keys to xmlattr filter",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-h75v-3vvj-5mfj",
+        "summary": "Jinja vulnerable to HTML attribute injection when passing user input as keys to xmlattr filter",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-q2x7-8rv6-6q7h",
+        "summary": "Jinja has a sandbox breakout through indirect reference to format method",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "PYSEC-2019-217",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2021-66",
+        "summary": "",
+        "severity": "UNKNOWN"
+      }
+    ],
+    "lxml": [
+      {
+        "id": "GHSA-55x5-fj6c-h6m8",
+        "summary": "lxml's HTML Cleaner allows crafted and SVG embedded scripts to pass through",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-jq4v-f5q6-mjqq",
+        "summary": "lxml vulnerable to Cross-Site Scripting ",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-pgww-xf46-h92r",
+        "summary": "lxml vulnerable to Cross-site Scripting",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-wrxv-2j5q-m38w",
+        "summary": "lxml NULL Pointer Dereference allows attackers to cause a denial of service",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-xp26-p53h-6h2p",
+        "summary": "Improper Neutralization of Input During Web Page Generation in LXML",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "PYSEC-2018-12",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2020-62",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2021-19",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2022-230",
+        "summary": "",
+        "severity": "UNKNOWN"
+      }
+    ],
+    "PyJWT": [
+      {
+        "id": "GHSA-ffqj-6fqr-9h24",
+        "summary": "Key confusion through non-blocklisted public key formats",
+        "severity": "HIGH"
+      },
+      {
+        "id": "PYSEC-2022-202",
+        "summary": "",
+        "severity": "UNKNOWN"
+      }
+    ],
+    "python-docx": [
+      {
+        "id": "GHSA-34wj-p5jm-2p96",
+        "summary": "Improper Restriction of XML External Entity Reference in python-docx",
+        "severity": "HIGH"
+      },
+      {
+        "id": "PYSEC-2016-21",
+        "summary": "",
+        "severity": "UNKNOWN"
+      }
+    ],
+    "PyYAML": [
+      {
+        "id": "GHSA-8q59-q68h-6hv4",
+        "summary": "Improper Input Validation in PyYAML",
+        "severity": "CRITICAL"
+      },
+      {
+        "id": "GHSA-rprw-h62v-c2w7",
+        "summary": "PyYAML insecurely deserializes YAML strings leading to arbitrary code execution",
+        "severity": "CRITICAL"
+      },
+      {
+        "id": "PYSEC-2018-49",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2021-142",
+        "summary": "",
+        "severity": "UNKNOWN"
+      }
+    ],
+    "requests": [
+      {
+        "id": "GHSA-9hjg-9r4m-mvj7",
+        "summary": "Requests vulnerable to .netrc credentials leak via malicious URLs",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-9wx4-h78v-vm56",
+        "summary": "Requests `Session` object does not verify requests after making first request with verify=False",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-j8r2-6x86-q33q",
+        "summary": "Unintended leak of Proxy-Authorization header in requests",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-x84v-xcm2-53pg",
+        "summary": "Insufficiently Protected Credentials in Requests",
+        "severity": "HIGH"
+      },
+      {
+        "id": "PYSEC-2018-28",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2023-74",
+        "summary": "",
+        "severity": "UNKNOWN"
+      }
+    ],
+    "SQLAlchemy": [
+      {
+        "id": "GHSA-38fc-9xqv-7f7q",
+        "summary": "SQLAlchemy is vulnerable to SQL Injection via group_by parameter ",
+        "severity": "CRITICAL"
+      },
+      {
+        "id": "GHSA-887w-45rq-vxgf",
+        "summary": "SQLAlchemy vulnerable to SQL Injection via order_by parameter",
+        "severity": "CRITICAL"
+      },
+      {
+        "id": "PYSEC-2019-123",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2019-124",
+        "summary": "",
+        "severity": "UNKNOWN"
+      }
+    ],
+    "tornado": [
+      {
+        "id": "GHSA-753j-mpmx-qq6g",
+        "summary": "Inconsistent Interpretation of HTTP Requests ('HTTP Request/Response Smuggling') in tornado",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-7cx3-6m66-7c5m",
+        "summary": "Tornado vulnerable to excessive logging caused by malformed multipart form data",
+        "severity": "HIGH"
+      },
+      {
+        "id": "GHSA-8w49-h785-mj3c",
+        "summary": "Tornado has an HTTP cookie parsing DoS vulnerability",
+        "severity": "HIGH"
+      },
+      {
+        "id": "GHSA-hj3f-6gcp-jg8j",
+        "summary": "Open redirect in Tornado",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-qppv-j76h-2rpx",
+        "summary": "Tornado vulnerable to HTTP request smuggling via improper parsing of `Content-Length` fields and chunk lengths",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-w235-7p84-xx57",
+        "summary": "Tornado has a CRLF injection in CurlAsyncHTTPClient headers",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "PYSEC-2023-75",
+        "summary": "",
+        "severity": "UNKNOWN"
+      }
+    ],
+    "urllib3": [
+      {
+        "id": "GHSA-2xpw-w6gg-jr37",
+        "summary": "urllib3 streaming API improperly handles highly compressed data",
+        "severity": "HIGH"
+      },
+      {
+        "id": "GHSA-34jh-p97f-mpxf",
+        "summary": "urllib3's Proxy-Authorization request header isn't stripped during cross-origin redirects",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-g4mx-q9vg-27p4",
+        "summary": "urllib3's request body not stripped after redirect from 303 status changes request method to GET",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-gwvm-45gx-3cf8",
+        "summary": "Authorization Header forwarded on redirect",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-mh33-7rrq-662w",
+        "summary": "Improper Certificate Validation in urllib3",
+        "severity": "HIGH"
+      },
+      {
+        "id": "GHSA-pq67-6m6q-mj2v",
+        "summary": "urllib3 redirects are not disabled when retries are disabled on PoolManager instantiation",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-r64q-w8jr-g9qp",
+        "summary": "Improper Neutralization of CRLF Sequences in urllib3 library for Python",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-v845-jxx5-vc9f",
+        "summary": "`Cookie` HTTP header isn't stripped on cross-origin redirects",
+        "severity": "HIGH"
+      },
+      {
+        "id": "GHSA-wqvq-5m8c-6g24",
+        "summary": "CRLF injection in urllib3",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-www2-v7xj-xrc6",
+        "summary": "Exposure of Sensitive Information to an Unauthorized Actor in urllib3",
+        "severity": "CRITICAL"
+      },
+      {
+        "id": "PYSEC-2018-32",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2019-132",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2019-133",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2020-148",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2021-108",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2023-192",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2023-207",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2023-212",
+        "summary": "",
+        "severity": "UNKNOWN"
+      }
+    ],
+    "Werkzeug": [
+      {
+        "id": "GHSA-29vq-49wr-vm6x",
+        "summary": " Werkzeug safe_join() allows Windows special device names",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-2g68-c3qc-8985",
+        "summary": "Werkzeug debugger vulnerable to remote execution when interacting with attacker controlled domain",
+        "severity": "HIGH"
+      },
+      {
+        "id": "GHSA-87hc-h4r5-73f7",
+        "summary": " Werkzeug safe_join() allows Windows special device names with compound extensions",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-f9vj-2wh5-fj8j",
+        "summary": "Werkzeug safe_join not safe on Windows",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-gq9m-qvpx-68hc",
+        "summary": "Pallets Werkzeug Insufficient Entropy",
+        "severity": "HIGH"
+      },
+      {
+        "id": "GHSA-hgf8-39gv-g3f2",
+        "summary": "Werkzeug safe_join() allows Windows special device names",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-hrfv-mqp8-q5rw",
+        "summary": "Werkzeug DoS: High resource usage when parsing multipart/form-data containing a large part with CR/LF character at the beginning",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-j544-7q9p-6xp8",
+        "summary": "Pallets Werkzeug vulnerable to Path Traversal",
+        "severity": "HIGH"
+      },
+      {
+        "id": "GHSA-px8h-6qxv-m22q",
+        "summary": "Incorrect parsing of nameless cookies leads to __Host- cookies bypass",
+        "severity": "LOW"
+      },
+      {
+        "id": "GHSA-q34m-jh98-gwm2",
+        "summary": "Werkzeug possible resource exhaustion when parsing file data in forms",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-xg9f-g7g7-2323",
+        "summary": "High resource usage when parsing multipart form data with many fields",
+        "severity": "HIGH"
+      },
+      {
+        "id": "PYSEC-2019-140",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2022-203",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2023-221",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2023-57",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2023-58",
+        "summary": "",
+        "severity": "UNKNOWN"
+      }
+    ]
+  }
+}

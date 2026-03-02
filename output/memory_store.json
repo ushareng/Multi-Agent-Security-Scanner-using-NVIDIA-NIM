@@ -1,0 +1,1144 @@
+{
+  "metadata": {
+    "start_time": "2026-03-01T16:26:06.372112",
+    "files_scanned": 4,
+    "total_candidates": 33,
+    "confirmed_findings": 1,
+    "false_positives_eliminated": 32
+  },
+  "findings": {
+    "2bff9fbc": {
+      "id": "2bff9fbc",
+      "filename": "app/app.py",
+      "vuln_type": "Hardcoded Secret",
+      "severity": "HIGH",
+      "location": "line 63",
+      "reasoning": "Credentials hardcoded in source code",
+      "cwe_id": "CWE-798",
+      "raw_code": "        user = User()\n        user.username = 'admin'\n        user.password = 'admin123'\n        db.session.add(user)\n        db.session.commit()",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.671357"
+    },
+    "3bd2116a": {
+      "id": "3bd2116a",
+      "filename": "app/app.py",
+      "vuln_type": "Weak Cryptographic Hash",
+      "severity": "MEDIUM",
+      "location": "line 141",
+      "reasoning": "MD5/SHA1 are cryptographically broken",
+      "cwe_id": "CWE-327",
+      "raw_code": "            username = content['username']\n            password = content['password']\n            hash_pass = hashlib.md5(password).hexdigest()\n            new_user = User(username, hash_pass)\n            db.session.add(new_user)",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.671907"
+    },
+    "8ee3b161": {
+      "id": "8ee3b161",
+      "filename": "app/app.py",
+      "vuln_type": "SSL Verification Disabled",
+      "severity": "HIGH",
+      "location": "line 97",
+      "reasoning": "SSL certificate verification explicitly disabled",
+      "cwe_id": "CWE-295",
+      "raw_code": "\ndef insecure_verify(token):\n    decoded = jwt.decode(token, verify = False)\n    print(decoded)\n    return True",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.673867"
+    },
+    "d93ad7b6": {
+      "id": "d93ad7b6",
+      "filename": "app/app.py",
+      "vuln_type": "Weak Cryptographic Hash",
+      "severity": "MEDIUM",
+      "location": "line 141",
+      "reasoning": "MD5/SHA1 are cryptographically broken",
+      "cwe_id": "CWE-327",
+      "raw_code": "            username = content['username']\n            password = content['password']\n            hash_pass = hashlib.md5(password).hexdigest()\n            new_user = User(username, hash_pass)\n            db.session.add(new_user)",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.675984"
+    },
+    "4c8bd1bd": {
+      "id": "4c8bd1bd",
+      "filename": "app/app.py",
+      "vuln_type": "Unsafe YAML Load",
+      "severity": "HIGH",
+      "location": "line 329",
+      "reasoning": "yaml.load without Loader=yaml.SafeLoader is unsafe",
+      "cwe_id": "CWE-502",
+      "raw_code": "            y = yfile.read()\n\n        ydata = yaml.load(y)\n\n    return render_template('view.html', name = json.dumps(ydata))",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.678479"
+    },
+    "9b6502a9": {
+      "id": "9b6502a9",
+      "filename": "app/app.py",
+      "vuln_type": "Insecure Randomness",
+      "severity": "MEDIUM",
+      "location": "line 295",
+      "reasoning": "random module is not cryptographically secure",
+      "cwe_id": "CWE-338",
+      "raw_code": "\n        f = request.files['file']\n        rand = random.randint(1, 100)\n        fname = secure_filename(f.filename)\n        fname = str(rand) + fname  # change file name",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.678856"
+    },
+    "2d5ecebc": {
+      "id": "2d5ecebc",
+      "filename": "app/app.py",
+      "vuln_type": "Insecure Randomness",
+      "severity": "MEDIUM",
+      "location": "line 319",
+      "reasoning": "random module is not cryptographically secure",
+      "cwe_id": "CWE-338",
+      "raw_code": "    if request.method == \"POST\":\n        f = request.files['file']\n        rand = random.randint(1, 100)\n        fname = secure_filename(f.filename)\n        fname = str(rand) + fname  # change file name",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.678897"
+    },
+    "d815e4ff": {
+      "id": "d815e4ff",
+      "filename": "app/app.py",
+      "vuln_type": "Debug Mode Enabled",
+      "severity": "MEDIUM",
+      "location": "line 339",
+      "reasoning": "Debug mode exposes sensitive information",
+      "cwe_id": "CWE-215",
+      "raw_code": "    http_server.listen(app_port)\n    IOLoop.instance().start()\n    # app.run(debug = True, host = '0.0.0.0', port = app_port)",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.679650"
+    },
+    "6a3d2402": {
+      "id": "6a3d2402",
+      "filename": "app/static/loader.js",
+      "vuln_type": "Code Injection via eval()",
+      "severity": "HIGH",
+      "location": "line 23",
+      "reasoning": "eval() with potentially user-controlled input",
+      "cwe_id": "CWE-95",
+      "raw_code": "K.Wl=function(b,c){if(K.tg()){var d=K.global.document;if(!K.Ge&&d.readyState==t){if(/\\bdeps.js$/.test(b))return!1;throw Error('Cannot write \"'+b+'\" after document load');}void 0===c?K.fi?(K.dh=!0,c=\" onreadystatechange='goog.onScriptLoad_(this, \"+ ++K.Sg+\")' \",d.write(n+b+'\"'+c+\">\\x3c/script>\")):K.Ge?K.Mi(b):K.Vl(b):d.write('<script type=\"text/javascript\">'+K.Wk(c)+\"\\x3c/script>\");return!0}return!1},K.Wk=function(b){return b.replace(/<\\/(SCRIPT)/ig,\"\\\\x3c/$1\")},K.$g=function(b){if(\"always\"==K.Ye)return!0;\nif(\"never\"==K.Ye)return!1;K.Gc||(K.Gc=K.gj());if(b in K.Gc)return K.Gc[b];throw Error(\"Unknown language mode: \"+b);},K.Gc=null,K.Sg=0,K.As=function(b,c){b.readyState==t&&K.Sg==c&&K.Dk();return!0},K.eu=function(b){function c(b){if(!(b in f.me||b in f.Bh)){f.Bh[b]=!0;if(b in f.gb)for(var g in f.gb[b])if(!K.pk(g))if(g in f.Ub)c(f.Ub[g]);else throw Error(\"Undefined nameToPath for \"+g);b in e||(e[b]=!0,d.push(b))}}var d=[],e={},f=K.la;c(b);for(var g=0;g<d.length;g++)b=d[g],K.la.me[b]=!0;var h=K.na;K.na=\nnull;for(g=0;g<d.length;g++)if(b=d[g]){var l=f.Qd[b]||{},m=K.$g(l.lang||\"es3\");\"goog\"==l.module||m?K.ck(K.La+b,\"goog\"==l.module,m):K.Gd(K.La+b)}else throw K.na=h,Error(\"Undefined script input\");K.na=h},K.Bd=function(b){return b in K.la.Ub?K.la.Ub[b]:null},K.zj(),K.global.Dm||K.Gd(K.La+\"deps.js\"));K.Ed=null;K.Ml=function(){if(null==K.Ed){try{var b=!eval('\"use strict\";let x = 1; function f() { return typeof x; };f() == \"number\";')}catch(c){b=!1}K.Ed=b}return K.Ed};\nK.Tl=function(b){return\"(function(){\"+b+\"\\n;})();\\n\"};K.fs=function(b){var c=K.na;try{K.na={Wd:void 0,ld:!1};if(K.za(b))var d=b.call(void 0,{});else if(K.L(b))K.Ml()&&(b=K.Tl(b)),d=K.Ck.call(void 0,b);else throw Error(\"Invalid module definition\");var e=K.na.Wd;if(!K.L(e)||!e)throw Error('Invalid module name \"'+e+'\"');K.na.ld?K.tf(e,d):K.vi&&Object.seal&&typeof d==y&&null!=d&&Object.seal(d);K.Fk[e]=d}finally{K.na=c}};K.Ck=function(b){eval(b);return{}};\nK.ts=function(b){b=b.split(\"/\");for(var c=0;c<b.length;)\".\"==b[c]?b.splice(c,1):c&&\"..\"==b[c]&&b[c-1]&&\"..\"!=b[c-1]?b.splice(--c,2):c++;return b.join(\"/\")};K.zk=function(b){if(K.global.Rh)return K.global.Rh(b);try{var c=new K.global.XMLHttpRequest;c.open(\"get\",b,!1);c.send();return 0==c.status||200==c.status?c.responseText:null}catch(d){return null}};K.Us=F();",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.679941"
+    },
+    "a6ec2882": {
+      "id": "a6ec2882",
+      "filename": "app/static/loader.js",
+      "vuln_type": "Code Injection via eval()",
+      "severity": "HIGH",
+      "location": "line 24",
+      "reasoning": "eval() with potentially user-controlled input",
+      "cwe_id": "CWE-95",
+      "raw_code": "if(\"never\"==K.Ye)return!1;K.Gc||(K.Gc=K.gj());if(b in K.Gc)return K.Gc[b];throw Error(\"Unknown language mode: \"+b);},K.Gc=null,K.Sg=0,K.As=function(b,c){b.readyState==t&&K.Sg==c&&K.Dk();return!0},K.eu=function(b){function c(b){if(!(b in f.me||b in f.Bh)){f.Bh[b]=!0;if(b in f.gb)for(var g in f.gb[b])if(!K.pk(g))if(g in f.Ub)c(f.Ub[g]);else throw Error(\"Undefined nameToPath for \"+g);b in e||(e[b]=!0,d.push(b))}}var d=[],e={},f=K.la;c(b);for(var g=0;g<d.length;g++)b=d[g],K.la.me[b]=!0;var h=K.na;K.na=\nnull;for(g=0;g<d.length;g++)if(b=d[g]){var l=f.Qd[b]||{},m=K.$g(l.lang||\"es3\");\"goog\"==l.module||m?K.ck(K.La+b,\"goog\"==l.module,m):K.Gd(K.La+b)}else throw K.na=h,Error(\"Undefined script input\");K.na=h},K.Bd=function(b){return b in K.la.Ub?K.la.Ub[b]:null},K.zj(),K.global.Dm||K.Gd(K.La+\"deps.js\"));K.Ed=null;K.Ml=function(){if(null==K.Ed){try{var b=!eval('\"use strict\";let x = 1; function f() { return typeof x; };f() == \"number\";')}catch(c){b=!1}K.Ed=b}return K.Ed};\nK.Tl=function(b){return\"(function(){\"+b+\"\\n;})();\\n\"};K.fs=function(b){var c=K.na;try{K.na={Wd:void 0,ld:!1};if(K.za(b))var d=b.call(void 0,{});else if(K.L(b))K.Ml()&&(b=K.Tl(b)),d=K.Ck.call(void 0,b);else throw Error(\"Invalid module definition\");var e=K.na.Wd;if(!K.L(e)||!e)throw Error('Invalid module name \"'+e+'\"');K.na.ld?K.tf(e,d):K.vi&&Object.seal&&typeof d==y&&null!=d&&Object.seal(d);K.Fk[e]=d}finally{K.na=c}};K.Ck=function(b){eval(b);return{}};\nK.ts=function(b){b=b.split(\"/\");for(var c=0;c<b.length;)\".\"==b[c]?b.splice(c,1):c&&\"..\"==b[c]&&b[c-1]&&\"..\"!=b[c-1]?b.splice(--c,2):c++;return b.join(\"/\")};K.zk=function(b){if(K.global.Rh)return K.global.Rh(b);try{var c=new K.global.XMLHttpRequest;c.open(\"get\",b,!1);c.send();return 0==c.status||200==c.status?c.responseText:null}catch(d){return null}};K.Us=F();\nK.Rt=function(b,c){var d=K.global.$jscomp;d||(K.global.$jscomp=d={});var e=d.je;if(!e){var f=K.La+K.Bi,g=K.zk(f);if(g){eval(g+a+f);if(K.global.$gwtExport&&K.global.$gwtExport.$jscomp&&!K.global.$gwtExport.$jscomp.transpile)throw Error('The transpiler did not properly export the \"transpile\" method. $gwtExport: '+JSON.stringify(K.global.$gwtExport));K.global.$jscomp.je=K.global.$gwtExport.$jscomp.transpile;d=K.global.$jscomp;e=d.je}}if(!e){var h=\" requires transpilation but no transpiler was found.\";",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.679962"
+    },
+    "7fd2b00c": {
+      "id": "7fd2b00c",
+      "filename": "app/static/loader.js",
+      "vuln_type": "Code Injection via eval()",
+      "severity": "HIGH",
+      "location": "line 26",
+      "reasoning": "eval() with potentially user-controlled input",
+      "cwe_id": "CWE-95",
+      "raw_code": "K.Tl=function(b){return\"(function(){\"+b+\"\\n;})();\\n\"};K.fs=function(b){var c=K.na;try{K.na={Wd:void 0,ld:!1};if(K.za(b))var d=b.call(void 0,{});else if(K.L(b))K.Ml()&&(b=K.Tl(b)),d=K.Ck.call(void 0,b);else throw Error(\"Invalid module definition\");var e=K.na.Wd;if(!K.L(e)||!e)throw Error('Invalid module name \"'+e+'\"');K.na.ld?K.tf(e,d):K.vi&&Object.seal&&typeof d==y&&null!=d&&Object.seal(d);K.Fk[e]=d}finally{K.na=c}};K.Ck=function(b){eval(b);return{}};\nK.ts=function(b){b=b.split(\"/\");for(var c=0;c<b.length;)\".\"==b[c]?b.splice(c,1):c&&\"..\"==b[c]&&b[c-1]&&\"..\"!=b[c-1]?b.splice(--c,2):c++;return b.join(\"/\")};K.zk=function(b){if(K.global.Rh)return K.global.Rh(b);try{var c=new K.global.XMLHttpRequest;c.open(\"get\",b,!1);c.send();return 0==c.status||200==c.status?c.responseText:null}catch(d){return null}};K.Us=F();\nK.Rt=function(b,c){var d=K.global.$jscomp;d||(K.global.$jscomp=d={});var e=d.je;if(!e){var f=K.La+K.Bi,g=K.zk(f);if(g){eval(g+a+f);if(K.global.$gwtExport&&K.global.$gwtExport.$jscomp&&!K.global.$gwtExport.$jscomp.transpile)throw Error('The transpiler did not properly export the \"transpile\" method. $gwtExport: '+JSON.stringify(K.global.$gwtExport));K.global.$jscomp.je=K.global.$gwtExport.$jscomp.transpile;d=K.global.$jscomp;e=d.je}}if(!e){var h=\" requires transpilation but no transpiler was found.\";\nh+=' Please add \"//javascript/closure:transpiler\" as a data dependency to ensure it is included.';e=d.je=function(b,c){K.Hk(c+h);return b}}return e(b,c)};\nK.aa=function(b){var c=typeof b;if(c==y)if(b){if(b instanceof Array)return r;if(b instanceof Object)return c;var d=Object.prototype.toString.call(b);if(\"[object Window]\"==d)return y;if(\"[object Array]\"==d||typeof b.length==x&&\"undefined\"!=typeof b.splice&&\"undefined\"!=typeof b.propertyIsEnumerable&&!b.propertyIsEnumerable(\"splice\"))return r;if(\"[object Function]\"==d||\"undefined\"!=typeof b.call&&\"undefined\"!=typeof b.propertyIsEnumerable&&!b.propertyIsEnumerable(\"call\"))return u}else return\"null\";",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.679981"
+    },
+    "e3e84b31": {
+      "id": "e3e84b31",
+      "filename": "app/static/loader.js",
+      "vuln_type": "Code Injection via eval()",
+      "severity": "HIGH",
+      "location": "line 33",
+      "reasoning": "eval() with potentially user-controlled input",
+      "cwe_id": "CWE-95",
+      "raw_code": "K.Ti=function(b,c,d){if(!b)throw Error();if(2<arguments.length){var e=Array.prototype.slice.call(arguments,2);return function(){var d=Array.prototype.slice.call(arguments);Array.prototype.unshift.apply(d,e);return b.apply(c,d)}}return function(){return b.apply(c,arguments)}};K.bind=function(b,c,d){K.bind=Function.prototype.bind&&-1!=Function.prototype.bind.toString().indexOf(\"native code\")?K.Ui:K.Ti;return K.bind.apply(null,arguments)};\nK.fb=function(b,c){var d=Array.prototype.slice.call(arguments,1);return function(){var c=d.slice();c.push.apply(c,arguments);return b.apply(this,c)}};K.os=function(b,c){for(var d in c)b[d]=c[d]};K.now=K.bd&&Date.now||function(){return+new Date};\nK.Vj=function(b){if(K.global.execScript)K.global.execScript(b,\"JavaScript\");else if(K.global.eval){if(null==K.oc)if(K.global.eval(\"var _evalTest_ = 1;\"),\"undefined\"!=typeof K.global._evalTest_){try{delete K.global._evalTest_}catch(e){}K.oc=!0}else K.oc=!1;if(K.oc)K.global.eval(b);else{var c=K.global.document,d=c.createElement(p);d.type=C;d.defer=!1;d.appendChild(c.createTextNode(b));c.body.appendChild(d);c.body.removeChild(d)}}else throw Error(\"goog.globalEval not available\");};K.oc=null;\nK.Yq=function(b,c){function d(b){b=b.split(\"-\");for(var c=[],d=0;d<b.length;d++)c.push(e(b[d]));return c.join(\"-\")}function e(b){return K.xf[b]||b}if(\".\"==String(b).charAt(0))throw Error('className passed in goog.getCssName must not start with \".\". You passed: '+b);var f=K.xf?\"BY_WHOLE\"==K.mj?e:d:E();b=c?b+\"-\"+f(c):f(b);return K.global.Qh?K.global.Qh(b):b};K.gt=function(b,c){K.xf=b;K.mj=c};K.dr=function(b,c){c&&(b=b.replace(/\\{\\$([^}]+)}/g,function(b,e){return null!=c&&e in c?c[e]:b}));return b};\nK.er=E();K.Cf=function(b,c){K.od(b,c,void 0)};K.Gq=function(b,c,d){b[c]=d};K.bb=function(b,c){function d(){}d.prototype=c.prototype;b.Nc=c.prototype;b.prototype=new d;b.prototype.constructor=b;b.Si=function(b,d,g){for(var e=Array(arguments.length-2),f=2;f<arguments.length;f++)e[f-2]=arguments[f];return c.prototype[d].apply(b,e)}};",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.680030"
+    },
+    "85841973": {
+      "id": "85841973",
+      "filename": "app/static/loader.js",
+      "vuln_type": "Code Injection via eval()",
+      "severity": "HIGH",
+      "location": "line 41",
+      "reasoning": "eval() with potentially user-controlled input",
+      "cwe_id": "CWE-95",
+      "raw_code": "K.qa.hj=function(b,c){function d(){var c=b.apply(this,arguments)||this;c[K.Wa]=c[K.Wa];this.constructor===d&&e&&Object.seal instanceof Function&&Object.seal(c);return c}if(!K.qa.ui)return b;var e=!K.qa.sk(c);return d};K.qa.sk=function(b){return b&&b.prototype&&b.prototype[K.Di]};K.qa.Pe=[\"constructor\",w,\"isPrototypeOf\",A,D,\"toString\",\"valueOf\"];\nK.qa.ff=function(b,c){for(var d in c)Object.prototype.hasOwnProperty.call(c,d)&&(b[d]=c[d]);for(var e=0;e<K.qa.Pe.length;e++)d=K.qa.Pe[e],Object.prototype.hasOwnProperty.call(c,d)&&(b[d]=c[d])};K.Kt=F();K.Di=\"goog_defineClass_legacy_unsealable\";\nK.gj=function(){function b(b,c){e?d[b]=!0:c()?d[b]=!1:e=d[b]=!0}function c(b){try{return!!eval(b)}catch(h){return!1}}var d={es3:!1},e=!1,f=K.global.navigator&&K.global.navigator.userAgent?K.global.navigator.userAgent:\"\";b(\"es5\",function(){return c(\"[1,].length==1\")});b(\"es6\",function(){var b=f.match(/Edge\\/(\\d+)(\\.\\d)*/i);return b&&15>Number(b[1])?!1:c('(()=>{\"use strict\";class X{constructor(){if(new.target!=String)throw 1;this.x=42}}let q=Reflect.construct(X,[],String);if(q.x!=42||!(q instanceof String))throw 1;for(const a of[2,3]){if(a==2)continue;function f(z={a}){let a=0;return z.a}{function f(){return 0;}}return f()==3}})()')});\nb(\"es6-impl\",function(){return!0});b(\"es7\",function(){return c(\"2 ** 2 == 4\")});b(\"es8\",function(){return c(\"async () => 1, true\")});return d};K.debug={};K.debug.Error=function(b){if(Error.captureStackTrace)Error.captureStackTrace(this,K.debug.Error);else{var c=Error().stack;c&&(this.stack=c)}b&&(this.message=String(b))};K.bb(K.debug.Error,Error);K.debug.Error.prototype.name=\"CustomError\";K.a={};K.a.fa={Ia:1,km:2,fc:3,zm:4,bn:5,an:6,ro:7,Im:8,Zc:9,Um:10,Xh:11,fo:12};K.f={};K.f.Yc=!1;K.f.Zh=!1;K.f.af={Ne:\"\\u00a0\"};K.f.startsWith=function(b,c){return 0==b.lastIndexOf(c,0)};K.f.endsWith=function(b,c){var d=b.length-c.length;return 0<=d&&b.indexOf(c,d)==d};K.f.aj=function(b){return 0==K.f.mf(\"tel:\",b.substr(0,4))};K.f.Up=function(b,c){return 0==K.f.mf(c,b.substr(b.length-c.length,c.length))};K.f.Vp=function(b,c){return b.toLowerCase()==c.toLowerCase()};\nK.f.yl=function(b,c){for(var d=b.split(\"%s\"),e=\"\",f=Array.prototype.slice.call(arguments,1);f.length&&1<d.length;)e+=d.shift()+f.shift();return e+d.join(\"%s\")};K.f.aq=function(b){return b.replace(/[\\s\\xa0]+/g,\" \").replace(/^\\s+|\\s+$/g,\"\")};K.f.Kd=function(b){return/^[\\s\\xa0]*$/.test(b)};K.f.Gr=function(b){return 0==b.length};K.f.Sb=K.f.Kd;K.f.gk=function(b){return K.f.Kd(K.f.Mk(b))};K.f.Fr=K.f.gk;K.f.Br=function(b){return!/[^\\t\\n\\r ]/.test(b)};K.f.yr=function(b){return!/[^a-zA-Z]/.test(b)};",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.680082"
+    },
+    "7ea93c32": {
+      "id": "7ea93c32",
+      "filename": "app/static/loader.js",
+      "vuln_type": "XSS via innerHTML",
+      "severity": "HIGH",
+      "location": "line 50",
+      "reasoning": "Direct assignment to innerHTML allows XSS",
+      "cwe_id": "CWE-79",
+      "raw_code": "K.f.ua=function(b,c){if(c)b=b.replace(K.f.ne,\"&amp;\").replace(K.f.Me,\"&lt;\").replace(K.f.Je,\"&gt;\").replace(K.f.Te,\"&quot;\").replace(K.f.We,\"&#39;\").replace(K.f.Oe,\"&#0;\"),K.f.Yc&&(b=b.replace(K.f.He,\"&#101;\"));else{if(!K.f.Gh.test(b))return b;-1!=b.indexOf(\"&\")&&(b=b.replace(K.f.ne,\"&amp;\"));-1!=b.indexOf(\"<\")&&(b=b.replace(K.f.Me,\"&lt;\"));-1!=b.indexOf(\">\")&&(b=b.replace(K.f.Je,\"&gt;\"));-1!=b.indexOf('\"')&&(b=b.replace(K.f.Te,\"&quot;\"));-1!=b.indexOf(\"'\")&&(b=b.replace(K.f.We,\"&#39;\"));-1!=b.indexOf(\"\\x00\")&&\n(b=b.replace(K.f.Oe,\"&#0;\"));K.f.Yc&&-1!=b.indexOf(\"e\")&&(b=b.replace(K.f.He,\"&#101;\"))}return b};K.f.ne=/&/g;K.f.Me=/</g;K.f.Je=/>/g;K.f.Te=/\"/g;K.f.We=/'/g;K.f.Oe=/\\x00/g;K.f.He=/e/g;K.f.Gh=K.f.Yc?/[\\x00&<>\"'e]/:/[\\x00&<>\"']/;K.f.xh=function(b){return K.f.contains(b,\"&\")?!K.f.Zh&&\"document\"in K.global?K.f.yh(b):K.f.Il(b):b};K.f.Vt=function(b,c){return K.f.contains(b,\"&\")?K.f.yh(b,c):b};\nK.f.yh=function(b,c){var d={\"&amp;\":\"&\",\"&lt;\":\"<\",\"&gt;\":\">\",\"&quot;\":'\"'};var e=c?c.createElement(\"div\"):K.global.document.createElement(\"div\");return b.replace(K.f.di,function(b,c){var f=d[b];if(f)return f;\"#\"==c.charAt(0)&&(c=Number(\"0\"+c.substr(1)),isNaN(c)||(f=String.fromCharCode(c)));f||(e.innerHTML=b+\" \",f=e.firstChild.nodeValue.slice(0,-1));return d[b]=f})};\nK.f.Il=function(b){return b.replace(/&([^;]+);/g,function(b,d){switch(d){case \"amp\":return\"&\";case \"lt\":return\"<\";case \"gt\":return\">\";case \"quot\":return'\"';default:return\"#\"!=d.charAt(0)||(d=Number(\"0\"+d.substr(1)),isNaN(d))?b:String.fromCharCode(d)}})};K.f.di=/&([^;\\s<&]+);?/g;K.f.Rl=function(b){return K.f.ah(b.replace(/  /g,\" &#160;\"),void 0)};K.f.Fs=function(b){return b.replace(/(^|[\\n ]) /g,\"$1\"+K.f.af.Ne)};\nK.f.Jt=function(b,c){for(var d=c.length,e=0;e<d;e++){var f=1==d?c:c.charAt(e);if(b.charAt(0)==f&&b.charAt(b.length-1)==f)return b.substring(1,b.length-1)}return b};K.f.truncate=function(b,c,d){d&&(b=K.f.xh(b));b.length>c&&(b=b.substring(0,c-3)+\"...\");d&&(b=K.f.ua(b));return b};K.f.Tt=function(b,c,d,e){d&&(b=K.f.xh(b));e&&b.length>c?(e>c&&(e=c),b=b.substring(0,c-e)+\"...\"+b.substring(b.length-e)):b.length>c&&(e=Math.floor(c/2),b=b.substring(0,e+c%2)+\"...\"+b.substring(b.length-e));d&&(b=K.f.ua(b));return b};",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.681487"
+    },
+    "e160a209": {
+      "id": "e160a209",
+      "filename": "app/static/loader.js",
+      "vuln_type": "XSS via document.write()",
+      "severity": "HIGH",
+      "location": "line 20",
+      "reasoning": "document.write with user input allows XSS",
+      "cwe_id": "CWE-79",
+      "raw_code": "K.De&&(K.la={Qd:{},Ub:{},gb:{},Bh:{},me:{},tb:{}},K.tg=function(){var b=K.global.document;return null!=b&&\"write\"in b},K.zj=function(){if(K.P(K.global.Be)&&K.L(K.global.Be))K.La=K.global.Be;else if(K.tg()){var b=K.global.document;var c=b.currentScript;b=c?[c]:b.getElementsByTagName(p);for(c=b.length-1;0<=c;--c){var d=b[c].src,e=d.lastIndexOf(\"?\");e=-1==e?d.length:e;if(\"base.js\"==d.substr(e-7,7)){K.La=d.substr(0,e-7);break}}}},K.Gd=function(b,c){(K.global.Cm||K.Wl)(b,c)&&(K.la.me[b]=!0)},K.fi=!(K.global.atob||\n!K.global.document||!K.global.document.all),K.dh=!1,K.ck=function(b,c,d){K.Gd(\"\",'goog.retrieveAndExec_(\"'+b+'\", '+c+\", \"+d+\");\")},K.Yd=[],K.du=function(b,c){return K.hi&&K.P(K.global.JSON)?\"goog.loadModule(\"+K.global.JSON.stringify(c+a+b+\"\\n\")+\");\":'goog.loadModule(function(exports) {\"use strict\";'+c+\"\\n;return exports});\\n//# sourceURL=\"+b+\"\\n\"},K.Dk=function(){var b=K.Yd.length;if(0<b){var c=K.Yd;K.Yd=[];for(var d=0;d<b;d++)K.Wg(c[d])}K.dh=!1},K.ms=function(b){K.Eg(b)&&K.Li(b)&&K.Wg(K.La+K.Bd(b))},\nK.Eg=function(b){var c=(b=K.Bd(b))&&K.la.Qd[b]||{},d=c.lang||\"es3\";return b&&(\"goog\"==c.module||K.$g(d))?K.La+b in K.la.tb:!1},K.Li=function(b){if((b=K.Bd(b))&&b in K.la.gb)for(var c in K.la.gb[b])if(!K.pk(c)&&!K.Eg(c))return!1;return!0},K.Wg=function(b){if(b in K.la.tb){var c=K.la.tb[b];delete K.la.tb[b];K.Vj(c)}},K.gs=F(),K.Vl=function(b){K.global.document.write(n+b+'\">\\x3c/script>')},K.Mi=function(b){var c=K.global.document,d=c.createElement(\"script\");d.type=C;d.src=b;d.defer=!1;d.async=!1;c.head.appendChild(d)},\nK.Wl=function(b,c){if(K.tg()){var d=K.global.document;if(!K.Ge&&d.readyState==t){if(/\\bdeps.js$/.test(b))return!1;throw Error('Cannot write \"'+b+'\" after document load');}void 0===c?K.fi?(K.dh=!0,c=\" onreadystatechange='goog.onScriptLoad_(this, \"+ ++K.Sg+\")' \",d.write(n+b+'\"'+c+\">\\x3c/script>\")):K.Ge?K.Mi(b):K.Vl(b):d.write('<script type=\"text/javascript\">'+K.Wk(c)+\"\\x3c/script>\");return!0}return!1},K.Wk=function(b){return b.replace(/<\\/(SCRIPT)/ig,\"\\\\x3c/$1\")},K.$g=function(b){if(\"always\"==K.Ye)return!0;\nif(\"never\"==K.Ye)return!1;K.Gc||(K.Gc=K.gj());if(b in K.Gc)return K.Gc[b];throw Error(\"Unknown language mode: \"+b);},K.Gc=null,K.Sg=0,K.As=function(b,c){b.readyState==t&&K.Sg==c&&K.Dk();return!0},K.eu=function(b){function c(b){if(!(b in f.me||b in f.Bh)){f.Bh[b]=!0;if(b in f.gb)for(var g in f.gb[b])if(!K.pk(g))if(g in f.Ub)c(f.Ub[g]);else throw Error(\"Undefined nameToPath for \"+g);b in e||(e[b]=!0,d.push(b))}}var d=[],e={},f=K.la;c(b);for(var g=0;g<d.length;g++)b=d[g],K.la.me[b]=!0;var h=K.na;K.na=",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.682794"
+    },
+    "70f92d04": {
+      "id": "70f92d04",
+      "filename": "app/static/loader.js",
+      "vuln_type": "Command Injection",
+      "severity": "CRITICAL",
+      "location": "line 57",
+      "reasoning": "child_process execution with potentially untrusted input",
+      "cwe_id": "CWE-78",
+      "raw_code": "K.f.Cb=function(b,c,d){var e=b;0<=c&&c<b.length&&0<d&&(e=b.substr(0,c)+b.substr(c+d,b.length-c-d));return e};K.f.remove=function(b,c){return b.replace(c,\"\")};K.f.Ls=function(b,c){c=new RegExp(K.f.Zd(c),\"g\");return b.replace(c,\"\")};K.f.Rs=function(b,c,d){c=new RegExp(K.f.Zd(c),\"g\");return b.replace(c,d.replace(/\\$/g,\"$$$$\"))};K.f.Zd=function(b){return String(b).replace(/([-()\\[\\]{}+?*.$\\^|,:#<!\\\\])/g,\"\\\\$1\").replace(/\\x08/g,\"\\\\x08\")};\nK.f.repeat=String.prototype.repeat?function(b,c){return b.repeat(c)}:function(b,c){return Array(c+1).join(b)};K.f.Ds=function(b,c,d){b=K.P(d)?b.toFixed(d):String(b);d=b.indexOf(\".\");-1==d&&(d=b.length);return K.f.repeat(\"0\",Math.max(0,c-d))+b};K.f.Mk=function(b){return null==b?\"\":String(b)};K.f.Pp=function(b){return Array.prototype.join.call(arguments,\"\")};K.f.ir=function(){return Math.floor(2147483648*Math.random()).toString(36)+Math.abs(Math.floor(2147483648*Math.random())^K.now()).toString(36)};\nK.f.Jb=function(b,c){var d=0;b=K.f.trim(String(b)).split(\".\");c=K.f.trim(String(c)).split(\".\");for(var e=Math.max(b.length,c.length),f=0;0==d&&f<e;f++){var g=b[f]||\"\",h=c[f]||\"\";do{g=/(\\d*)(\\D*)(.*)/.exec(g)||[\"\",\"\",\"\",\"\"];h=/(\\d*)(\\D*)(.*)/.exec(h)||[\"\",\"\",\"\",\"\"];if(0==g[0].length&&0==h[0].length)break;d=K.f.fd(0==g[1].length?0:parseInt(g[1],10),0==h[1].length?0:parseInt(h[1],10))||K.f.fd(0==g[2].length,0==h[2].length)||K.f.fd(g[2],h[2]);g=g[3];h=h[3]}while(0==d)}return d};\nK.f.fd=function(b,c){return b<c?-1:b>c?1:0};K.f.qr=function(b){for(var c=0,d=0;d<b.length;++d)c=31*c+b.charCodeAt(d)>>>0;return c};K.f.Jl=2147483648*Math.random()|0;K.f.rq=function(){return\"goog_\"+K.f.Jl++};K.f.Nt=function(b){var c=Number(b);return 0==c&&K.f.Kd(b)?NaN:c};K.f.Lr=function(b){return/^[a-z]+([A-Z][a-z]*)*$/.test(b)};K.f.$r=function(b){return/^([A-Z][a-z]*)+$/.test(b)};K.f.Mt=function(b){return String(b).replace(/\\-([a-z])/g,function(b,d){return d.toUpperCase()})};\nK.f.Pt=function(b){return String(b).replace(/([A-Z])/g,\"-$1\").toLowerCase()};K.f.Qt=function(b,c){c=K.L(c)?K.f.Zd(c):\"\\\\s\";return b.replace(new RegExp(\"(^\"+(c?\"|[\"+c+\"]+\":\"\")+\")([a-z])\",\"g\"),function(b,c,f){return c+f.toUpperCase()})};K.f.Tp=function(b){return String(b.charAt(0)).toUpperCase()+String(b.substr(1)).toLowerCase()};K.f.parseInt=function(b){isFinite(b)&&(b=String(b));return K.L(b)?/^\\s*-?0x/i.test(b)?parseInt(b,16):parseInt(b,10):NaN};",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.684981"
+    },
+    "4b85361c": {
+      "id": "4b85361c",
+      "filename": "app/static/loader.js",
+      "vuln_type": "Command Injection",
+      "severity": "CRITICAL",
+      "location": "line 105",
+      "reasoning": "child_process execution with potentially untrusted input",
+      "cwe_id": "CWE-78",
+      "raw_code": "K.I.create=function(b,c){function d(){}d.prototype=b.prototype;var e=new d;b.apply(e,Array.prototype.slice.call(arguments,1));return e};K.I.Mh=!0;K.I.Qp=function(b){var c=!1,d;return function(){if(!K.I.Mh)return b();c||(d=b(),c=!0);return d}};K.I.once=function(b){var c=b;return function(){if(c){var b=c;c=null;b()}}};K.I.tq=function(b,c,d){var e=0;return function(f){K.global.clearTimeout(e);var g=arguments;e=K.global.setTimeout(function(){b.apply(d,g)},c)}};\nK.I.Lt=function(b,c,d){function e(){g=K.global.setTimeout(f,c);b.apply(d,l)}function f(){g=0;h&&(h=!1,e())}var g=0,h=!1,l=[];return function(b){l=arguments;g?h=!0:e()}};K.I.Js=function(b,c,d){function e(){f=0}var f=0;return function(){f||(f=K.global.setTimeout(e,c),b.apply(d,arguments))}};K.g={};K.g.userAgent={};K.g.userAgent.A={};K.g.userAgent.A.$f=function(){var b=K.g.userAgent.A.Mj();return b&&(b=b.userAgent)?b:\"\"};K.g.userAgent.A.Mj=function(){return K.global.navigator};K.g.userAgent.A.zh=K.g.userAgent.A.$f();K.g.userAgent.A.zt=function(b){K.g.userAgent.A.zh=b||K.g.userAgent.A.$f()};K.g.userAgent.A.wb=function(){return K.g.userAgent.A.zh};K.g.userAgent.A.J=function(b){return K.f.contains(K.g.userAgent.A.wb(),b)};\nK.g.userAgent.A.Sk=function(){return K.f.nf(K.g.userAgent.A.wb(),\"WebKit\")};K.g.userAgent.A.Df=function(b){for(var c=/(\\w[\\w ]+)\\/([^\\s]+)\\s*(?:\\((.*?)\\))?/g,d=[],e;e=c.exec(b);)d.push([e[1],e[2],e[3]||void 0]);return d};K.object={};K.object.is=function(b,c){return b===c?0!==b||1/b===1/c:b!==b&&c!==c};K.object.forEach=function(b,c,d){for(var e in b)c.call(d,b[e],e,b)};K.object.filter=function(b,c,d){var e={},f;for(f in b)c.call(d,b[f],f,b)&&(e[f]=b[f]);return e};K.object.map=function(b,c,d){var e={},f;for(f in b)e[f]=c.call(d,b[f],f,b);return e};K.object.some=function(b,c,d){for(var e in b)if(c.call(d,b[e],e,b))return!0;return!1};K.object.every=function(b,c,d){for(var e in b)if(!c.call(d,b[e],e,b))return!1;return!0};\nK.object.Xq=function(b){var c=0,d;for(d in b)c++;return c};K.object.Vq=function(b){for(var c in b)return c};K.object.Wq=function(b){for(var c in b)return b[c]};K.object.contains=function(b,c){return K.object.ej(b,c)};K.object.lr=function(b){var c=[],d=0,e;for(e in b)c[d++]=b[e];return c};K.object.Yf=function(b){var c=[],d=0,e;for(e in b)c[d++]=e;return c};K.object.kr=function(b,c){var d=K.Pb(c),e=d?c:arguments;for(d=d?0:1;d<e.length&&(b=b[e[d]],K.P(b));d++);return b};\nK.object.dj=function(b,c){return null!==b&&c in b};K.object.ej=function(b,c){for(var d in b)if(b[d]==c)return!0;return!1};K.object.Bj=function(b,c,d){for(var e in b)if(c.call(d,b[e],e,b))return e};K.object.Jq=function(b,c,d){return(c=K.object.Bj(b,c,d))&&b[c]};K.object.Sb=function(b){for(var c in b)return!1;return!0};K.object.clear=function(b){for(var c in b)delete b[c]};K.object.remove=function(b,c){var d;(d=c in b)&&delete b[c];return d};",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.686100"
+    },
+    "21c52d10": {
+      "id": "21c52d10",
+      "filename": "app/static/loader.js",
+      "vuln_type": "Command Injection",
+      "severity": "CRITICAL",
+      "location": "line 116",
+      "reasoning": "child_process execution with potentially untrusted input",
+      "cwe_id": "CWE-78",
+      "raw_code": "K.g.userAgent.v.Ok=function(){return K.g.userAgent.A.J(\"Android\")&&!(K.g.userAgent.v.Cg()||K.g.userAgent.v.hk()||K.g.userAgent.v.Pd()||K.g.userAgent.v.Ng())};K.g.userAgent.v.Pd=K.g.userAgent.v.Ug;K.g.userAgent.v.xc=K.g.userAgent.v.Qk;K.g.userAgent.v.Ra=K.g.userAgent.v.Ud;K.g.userAgent.v.hk=K.g.userAgent.v.Pk;K.g.userAgent.v.Wr=K.g.userAgent.v.Vg;K.g.userAgent.v.Cr=K.g.userAgent.v.Td;K.g.userAgent.v.Kr=K.g.userAgent.v.Rk;K.g.userAgent.v.Cg=K.g.userAgent.v.Sd;K.g.userAgent.v.Ar=K.g.userAgent.v.Ok;\nK.g.userAgent.v.Ng=function(){return K.g.userAgent.A.J(\"Silk\")};K.g.userAgent.v.Nb=function(){function b(b){b=K.j.find(b,e);return d[b]||\"\"}var c=K.g.userAgent.A.wb();if(K.g.userAgent.v.xc())return K.g.userAgent.v.Lj(c);c=K.g.userAgent.A.Df(c);var d={};K.j.forEach(c,function(b){d[b[0]]=b[1]});var e=K.fb(K.object.dj,d);return K.g.userAgent.v.Pd()?b([\"Version\",\"Opera\"]):K.g.userAgent.v.Ra()?b([\"Edge\"]):K.g.userAgent.v.Cg()?b([\"Chrome\",\"CriOS\"]):(c=c[2])&&c[1]||\"\"};\nK.g.userAgent.v.wa=function(b){return 0<=K.f.Jb(K.g.userAgent.v.Nb(),b)};K.g.userAgent.v.Lj=function(b){var c=/rv: *([\\d\\.]*)/.exec(b);if(c&&c[1])return c[1];c=\"\";var d=/MSIE +([\\d\\.]+)/.exec(b);if(d&&d[1])if(b=/Trident\\/(\\d.\\d)/.exec(b),\"7.0\"==d[1])if(b&&b[1])switch(b[1]){case \"4.0\":c=\"8.0\";break;case \"5.0\":c=\"9.0\";break;case \"6.0\":c=\"10.0\";break;case \"7.0\":c=\"11.0\"}else c=\"7.0\";else c=d[1];return c};K.g.userAgent.U={};K.g.userAgent.U.nk=function(){return K.g.userAgent.A.J(\"Presto\")};K.g.userAgent.U.rk=function(){return K.g.userAgent.A.J(\"Trident\")||K.g.userAgent.A.J(\"MSIE\")};K.g.userAgent.U.Ra=function(){return K.g.userAgent.A.J(\"Edge\")};K.g.userAgent.U.Pg=function(){return K.g.userAgent.A.Sk()&&!K.g.userAgent.U.Ra()};K.g.userAgent.U.ik=function(){return K.g.userAgent.A.J(\"Gecko\")&&!K.g.userAgent.U.Pg()&&!K.g.userAgent.U.rk()&&!K.g.userAgent.U.Ra()};\nK.g.userAgent.U.Nb=function(){var b=K.g.userAgent.A.wb();if(b){b=K.g.userAgent.A.Df(b);var c=K.g.userAgent.U.Jj(b);if(c)return\"Gecko\"==c[0]?K.g.userAgent.U.Tj(b):c[1];b=b[0];var d;if(b&&(d=b[2])&&(d=/Trident\\/([^\\s;]+)/.exec(d)))return d[1]}return\"\"};K.g.userAgent.U.Jj=function(b){if(!K.g.userAgent.U.Ra())return b[1];for(var c=0;c<b.length;c++){var d=b[c];if(\"Edge\"==d[0])return d}};K.g.userAgent.U.wa=function(b){return 0<=K.f.Jb(K.g.userAgent.U.Nb(),b)};\nK.g.userAgent.U.Tj=function(b){return(b=K.j.find(b,function(b){return\"Firefox\"==b[0]}))&&b[1]||\"\"};K.async.th=function(b){K.global.setTimeout(function(){throw b;},0)};K.async.ra=function(b,c,d){var e=b;c&&(e=K.bind(b,c));e=K.async.ra.Ch(e);K.za(K.global.setImmediate)&&(d||K.async.ra.Nl())?K.global.setImmediate(e):(K.async.ra.nh||(K.async.ra.nh=K.async.ra.Pj()),K.async.ra.nh(e))};K.async.ra.Nl=function(){return K.global.Window&&K.global.Window.prototype&&!K.g.userAgent.v.Ra()&&K.global.Window.prototype.setImmediate==K.global.setImmediate?!1:!0};",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.686345"
+    },
+    "38eb017d": {
+      "id": "38eb017d",
+      "filename": "app/static/loader.js",
+      "vuln_type": "Command Injection",
+      "severity": "CRITICAL",
+      "location": "line 117",
+      "reasoning": "child_process execution with potentially untrusted input",
+      "cwe_id": "CWE-78",
+      "raw_code": "K.g.userAgent.v.Ng=function(){return K.g.userAgent.A.J(\"Silk\")};K.g.userAgent.v.Nb=function(){function b(b){b=K.j.find(b,e);return d[b]||\"\"}var c=K.g.userAgent.A.wb();if(K.g.userAgent.v.xc())return K.g.userAgent.v.Lj(c);c=K.g.userAgent.A.Df(c);var d={};K.j.forEach(c,function(b){d[b[0]]=b[1]});var e=K.fb(K.object.dj,d);return K.g.userAgent.v.Pd()?b([\"Version\",\"Opera\"]):K.g.userAgent.v.Ra()?b([\"Edge\"]):K.g.userAgent.v.Cg()?b([\"Chrome\",\"CriOS\"]):(c=c[2])&&c[1]||\"\"};\nK.g.userAgent.v.wa=function(b){return 0<=K.f.Jb(K.g.userAgent.v.Nb(),b)};K.g.userAgent.v.Lj=function(b){var c=/rv: *([\\d\\.]*)/.exec(b);if(c&&c[1])return c[1];c=\"\";var d=/MSIE +([\\d\\.]+)/.exec(b);if(d&&d[1])if(b=/Trident\\/(\\d.\\d)/.exec(b),\"7.0\"==d[1])if(b&&b[1])switch(b[1]){case \"4.0\":c=\"8.0\";break;case \"5.0\":c=\"9.0\";break;case \"6.0\":c=\"10.0\";break;case \"7.0\":c=\"11.0\"}else c=\"7.0\";else c=d[1];return c};K.g.userAgent.U={};K.g.userAgent.U.nk=function(){return K.g.userAgent.A.J(\"Presto\")};K.g.userAgent.U.rk=function(){return K.g.userAgent.A.J(\"Trident\")||K.g.userAgent.A.J(\"MSIE\")};K.g.userAgent.U.Ra=function(){return K.g.userAgent.A.J(\"Edge\")};K.g.userAgent.U.Pg=function(){return K.g.userAgent.A.Sk()&&!K.g.userAgent.U.Ra()};K.g.userAgent.U.ik=function(){return K.g.userAgent.A.J(\"Gecko\")&&!K.g.userAgent.U.Pg()&&!K.g.userAgent.U.rk()&&!K.g.userAgent.U.Ra()};\nK.g.userAgent.U.Nb=function(){var b=K.g.userAgent.A.wb();if(b){b=K.g.userAgent.A.Df(b);var c=K.g.userAgent.U.Jj(b);if(c)return\"Gecko\"==c[0]?K.g.userAgent.U.Tj(b):c[1];b=b[0];var d;if(b&&(d=b[2])&&(d=/Trident\\/([^\\s;]+)/.exec(d)))return d[1]}return\"\"};K.g.userAgent.U.Jj=function(b){if(!K.g.userAgent.U.Ra())return b[1];for(var c=0;c<b.length;c++){var d=b[c];if(\"Edge\"==d[0])return d}};K.g.userAgent.U.wa=function(b){return 0<=K.f.Jb(K.g.userAgent.U.Nb(),b)};\nK.g.userAgent.U.Tj=function(b){return(b=K.j.find(b,function(b){return\"Firefox\"==b[0]}))&&b[1]||\"\"};K.async.th=function(b){K.global.setTimeout(function(){throw b;},0)};K.async.ra=function(b,c,d){var e=b;c&&(e=K.bind(b,c));e=K.async.ra.Ch(e);K.za(K.global.setImmediate)&&(d||K.async.ra.Nl())?K.global.setImmediate(e):(K.async.ra.nh||(K.async.ra.nh=K.async.ra.Pj()),K.async.ra.nh(e))};K.async.ra.Nl=function(){return K.global.Window&&K.global.Window.prototype&&!K.g.userAgent.v.Ra()&&K.global.Window.prototype.setImmediate==K.global.setImmediate?!1:!0};\nK.async.ra.Pj=function(){var b=K.global.MessageChannel;\"undefined\"===typeof b&&\"undefined\"!==typeof window&&window.postMessage&&window.addEventListener&&!K.g.userAgent.U.nk()&&(b=function(){var b=document.createElement(\"IFRAME\");b.style.display=\"none\";b.src=\"\";document.documentElement.appendChild(b);var c=b.contentWindow;b=c.document;b.open();b.write(\"\");b.close();var d=\"callImmediate\"+Math.random(),e=\"file:\"==c.location.protocol?\"*\":c.location.protocol+\"//\"+c.location.host;b=K.bind(function(b){if((\"*\"==",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.686366"
+    },
+    "68bd86ab": {
+      "id": "68bd86ab",
+      "filename": "app/static/loader.js",
+      "vuln_type": "Command Injection",
+      "severity": "CRITICAL",
+      "location": "line 125",
+      "reasoning": "child_process execution with potentially untrusted input",
+      "cwe_id": "CWE-78",
+      "raw_code": "K.ea&&(K.async.N.Ts=function(){K.async.N.Rc=!1;K.async.N.le=new K.async.Ea});K.async.N.Fc=function(){for(var b;b=K.async.N.le.remove();){try{b.qd.call(b.scope)}catch(c){K.async.th(c)}K.async.Ea.Mb.put(b)}K.async.N.Rc=!1};K.a.m={};K.a.m.Ep=F();K.a.m.wp=F();K.a.m.Bp=F();K.a.m.Ap=F();K.a.m.xp=F();K.a.m.yp=F();K.a.m.zp=F();K.a.m.Cp=F();K.a.m.Dp=F();K.a.m.uq=function(b){return K.ia(b)?b.constructor.displayName||b.constructor.name||Object.prototype.toString.call(b):void 0===b?\"undefined\":null===b?\"null\":typeof b};K.a.m.tc=function(b){return(b=b&&b.ownerDocument)&&(b.defaultView||b.parentWindow)||window};K.g.userAgent.platform={};K.g.userAgent.platform.Bg=function(){return K.g.userAgent.A.J(\"Android\")};K.g.userAgent.platform.Kg=function(){return K.g.userAgent.A.J(\"iPod\")};K.g.userAgent.platform.Jg=function(){return K.g.userAgent.A.J(\"iPhone\")&&!K.g.userAgent.A.J(\"iPod\")&&!K.g.userAgent.A.J(\"iPad\")};K.g.userAgent.platform.Ig=function(){return K.g.userAgent.A.J(\"iPad\")};K.g.userAgent.platform.Hg=function(){return K.g.userAgent.platform.Jg()||K.g.userAgent.platform.Ig()||K.g.userAgent.platform.Kg()};\nK.g.userAgent.platform.Lg=function(){return K.g.userAgent.A.J(\"Macintosh\")};K.g.userAgent.platform.kk=function(){return K.g.userAgent.A.J(\"Linux\")};K.g.userAgent.platform.Rg=function(){return K.g.userAgent.A.J(\"Windows\")};K.g.userAgent.platform.Dg=function(){return K.g.userAgent.A.J(\"CrOS\")};\nK.g.userAgent.platform.Nb=function(){var b=K.g.userAgent.A.wb();var c=\"\";K.g.userAgent.platform.Rg()?(c=/Windows (?:NT|Phone) ([0-9.]+)/,c=(b=c.exec(b))?b[1]:\"0.0\"):K.g.userAgent.platform.Hg()?(c=/(?:iPhone|iPod|iPad|CPU)\\s+OS\\s+(\\S+)/,c=(b=c.exec(b))&&b[1].replace(/_/g,\".\")):K.g.userAgent.platform.Lg()?(c=/Mac OS X ([0-9_.]+)/,c=(b=c.exec(b))?b[1].replace(/_/g,\".\"):\"10\"):K.g.userAgent.platform.Bg()?(c=/Android\\s+([^\\);]+)(\\)|;)/,c=(b=c.exec(b))&&b[1]):K.g.userAgent.platform.Dg()&&(c=/(?:CrOS\\s+(?:i686|x86_64)\\s+([0-9.]+))/,\nc=(b=c.exec(b))&&b[1]);return c||\"\"};K.g.userAgent.platform.wa=function(b){return 0<=K.f.Jb(K.g.userAgent.platform.Nb(),b)};K.Ha={};K.Ha.object=function(b,c){return c};K.Ha.ee=function(b){K.Ha.ee[\" \"](b);return b};K.Ha.ee[\" \"]=K.Sa;K.Ha.Rp=function(b,c){try{return K.Ha.ee(b[c]),!0}catch(d){}return!1};K.Ha.cache=function(b,c,d,e){e=e?e(c):c;return Object.prototype.hasOwnProperty.call(b,e)?b[e]:b[e]=d(c)};K.userAgent={};K.userAgent.re=!1;K.userAgent.pe=!1;K.userAgent.qe=!1;K.userAgent.we=!1;K.userAgent.Wc=!1;K.userAgent.ue=!1;K.userAgent.Hh=!1;K.userAgent.Gb=K.userAgent.re||K.userAgent.pe||K.userAgent.qe||K.userAgent.Wc||K.userAgent.we||K.userAgent.ue;K.userAgent.Sj=function(){return K.g.userAgent.A.wb()};K.userAgent.ag=function(){return K.global.navigator||null};K.userAgent.Qe=K.userAgent.Gb?K.userAgent.ue:K.g.userAgent.v.Pd();K.userAgent.Y=K.userAgent.Gb?K.userAgent.re:K.g.userAgent.v.xc();\nK.userAgent.Fe=K.userAgent.Gb?K.userAgent.pe:K.g.userAgent.U.Ra();K.userAgent.Xm=K.userAgent.Fe||K.userAgent.Y;K.userAgent.$c=K.userAgent.Gb?K.userAgent.qe:K.g.userAgent.U.ik();K.userAgent.Hb=K.userAgent.Gb?K.userAgent.we||K.userAgent.Wc:K.g.userAgent.U.Pg();K.userAgent.mk=function(){return K.userAgent.Hb&&K.g.userAgent.A.J(\"Mobile\")};K.userAgent.ao=K.userAgent.Wc||K.userAgent.mk();K.userAgent.yo=K.userAgent.Hb;K.userAgent.pj=function(){var b=K.userAgent.ag();return b&&b.platform||\"\"};",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.686582"
+    },
+    "27f76949": {
+      "id": "27f76949",
+      "filename": "app/static/loader.js",
+      "vuln_type": "Command Injection",
+      "severity": "CRITICAL",
+      "location": "line 126",
+      "reasoning": "child_process execution with potentially untrusted input",
+      "cwe_id": "CWE-78",
+      "raw_code": "K.g.userAgent.platform.Lg=function(){return K.g.userAgent.A.J(\"Macintosh\")};K.g.userAgent.platform.kk=function(){return K.g.userAgent.A.J(\"Linux\")};K.g.userAgent.platform.Rg=function(){return K.g.userAgent.A.J(\"Windows\")};K.g.userAgent.platform.Dg=function(){return K.g.userAgent.A.J(\"CrOS\")};\nK.g.userAgent.platform.Nb=function(){var b=K.g.userAgent.A.wb();var c=\"\";K.g.userAgent.platform.Rg()?(c=/Windows (?:NT|Phone) ([0-9.]+)/,c=(b=c.exec(b))?b[1]:\"0.0\"):K.g.userAgent.platform.Hg()?(c=/(?:iPhone|iPod|iPad|CPU)\\s+OS\\s+(\\S+)/,c=(b=c.exec(b))&&b[1].replace(/_/g,\".\")):K.g.userAgent.platform.Lg()?(c=/Mac OS X ([0-9_.]+)/,c=(b=c.exec(b))?b[1].replace(/_/g,\".\"):\"10\"):K.g.userAgent.platform.Bg()?(c=/Android\\s+([^\\);]+)(\\)|;)/,c=(b=c.exec(b))&&b[1]):K.g.userAgent.platform.Dg()&&(c=/(?:CrOS\\s+(?:i686|x86_64)\\s+([0-9.]+))/,\nc=(b=c.exec(b))&&b[1]);return c||\"\"};K.g.userAgent.platform.wa=function(b){return 0<=K.f.Jb(K.g.userAgent.platform.Nb(),b)};K.Ha={};K.Ha.object=function(b,c){return c};K.Ha.ee=function(b){K.Ha.ee[\" \"](b);return b};K.Ha.ee[\" \"]=K.Sa;K.Ha.Rp=function(b,c){try{return K.Ha.ee(b[c]),!0}catch(d){}return!1};K.Ha.cache=function(b,c,d,e){e=e?e(c):c;return Object.prototype.hasOwnProperty.call(b,e)?b[e]:b[e]=d(c)};K.userAgent={};K.userAgent.re=!1;K.userAgent.pe=!1;K.userAgent.qe=!1;K.userAgent.we=!1;K.userAgent.Wc=!1;K.userAgent.ue=!1;K.userAgent.Hh=!1;K.userAgent.Gb=K.userAgent.re||K.userAgent.pe||K.userAgent.qe||K.userAgent.Wc||K.userAgent.we||K.userAgent.ue;K.userAgent.Sj=function(){return K.g.userAgent.A.wb()};K.userAgent.ag=function(){return K.global.navigator||null};K.userAgent.Qe=K.userAgent.Gb?K.userAgent.ue:K.g.userAgent.v.Pd();K.userAgent.Y=K.userAgent.Gb?K.userAgent.re:K.g.userAgent.v.xc();\nK.userAgent.Fe=K.userAgent.Gb?K.userAgent.pe:K.g.userAgent.U.Ra();K.userAgent.Xm=K.userAgent.Fe||K.userAgent.Y;K.userAgent.$c=K.userAgent.Gb?K.userAgent.qe:K.g.userAgent.U.ik();K.userAgent.Hb=K.userAgent.Gb?K.userAgent.we||K.userAgent.Wc:K.g.userAgent.U.Pg();K.userAgent.mk=function(){return K.userAgent.Hb&&K.g.userAgent.A.J(\"Mobile\")};K.userAgent.ao=K.userAgent.Wc||K.userAgent.mk();K.userAgent.yo=K.userAgent.Hb;K.userAgent.pj=function(){var b=K.userAgent.ag();return b&&b.platform||\"\"};\nK.userAgent.po=K.userAgent.pj();K.userAgent.te=!1;K.userAgent.xe=!1;K.userAgent.se=!1;K.userAgent.ye=!1;K.userAgent.oe=!1;K.userAgent.Uc=!1;K.userAgent.Tc=!1;K.userAgent.Vc=!1;K.userAgent.Da=K.userAgent.te||K.userAgent.xe||K.userAgent.se||K.userAgent.ye||K.userAgent.oe||K.userAgent.Uc||K.userAgent.Tc||K.userAgent.Vc;K.userAgent.Un=K.userAgent.Da?K.userAgent.te:K.g.userAgent.platform.Lg();K.userAgent.hp=K.userAgent.Da?K.userAgent.xe:K.g.userAgent.platform.Rg();",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.686594"
+    },
+    "5ede1925": {
+      "id": "5ede1925",
+      "filename": "app/static/loader.js",
+      "vuln_type": "Command Injection",
+      "severity": "CRITICAL",
+      "location": "line 131",
+      "reasoning": "child_process execution with potentially untrusted input",
+      "cwe_id": "CWE-78",
+      "raw_code": "K.userAgent.jk=function(){return K.g.userAgent.platform.kk()||K.g.userAgent.platform.Dg()};K.userAgent.Tn=K.userAgent.Da?K.userAgent.se:K.userAgent.jk();K.userAgent.vk=function(){var b=K.userAgent.ag();return!!b&&K.f.contains(b.appVersion||\"\",\"X11\")};K.userAgent.ip=K.userAgent.Da?K.userAgent.ye:K.userAgent.vk();K.userAgent.dm=K.userAgent.Da?K.userAgent.oe:K.g.userAgent.platform.Bg();K.userAgent.In=K.userAgent.Da?K.userAgent.Uc:K.g.userAgent.platform.Jg();\nK.userAgent.Hn=K.userAgent.Da?K.userAgent.Tc:K.g.userAgent.platform.Ig();K.userAgent.Jn=K.userAgent.Da?K.userAgent.Vc:K.g.userAgent.platform.Kg();K.userAgent.Gn=K.userAgent.Da?K.userAgent.Uc||K.userAgent.Tc||K.userAgent.Vc:K.g.userAgent.platform.Hg();K.userAgent.qj=function(){var b=\"\",c=K.userAgent.Uj();c&&(b=c?c[1]:\"\");return K.userAgent.Y&&(c=K.userAgent.Rf(),null!=c&&c>parseFloat(b))?String(c):b};\nK.userAgent.Uj=function(){var b=K.userAgent.Sj();if(K.userAgent.$c)return/rv\\:([^\\);]+)(\\)|;)/.exec(b);if(K.userAgent.Fe)return/Edge\\/([\\d\\.]+)/.exec(b);if(K.userAgent.Y)return/\\b(?:MSIE|rv)[: ]([^\\);]+)(\\)|;)/.exec(b);if(K.userAgent.Hb)return/WebKit\\/(\\S+)/.exec(b);if(K.userAgent.Qe)return/(?:Version)[ \\/]?(\\S+)/.exec(b)};K.userAgent.Rf=function(){var b=K.global.document;return b?b.documentMode:void 0};K.userAgent.VERSION=K.userAgent.qj();K.userAgent.compare=function(b,c){return K.f.Jb(b,c)};\nK.userAgent.tk={};K.userAgent.wa=function(b){return K.userAgent.Hh||K.Ha.cache(K.userAgent.tk,b,function(){return 0<=K.f.Jb(K.userAgent.VERSION,b)})};K.userAgent.as=K.userAgent.wa;K.userAgent.Rb=function(b){return Number(K.userAgent.Yh)>=b};K.userAgent.Er=K.userAgent.Rb;var L;var M=K.global.document,aa=K.userAgent.Rf();L=M&&K.userAgent.Y?aa||(\"CSS1Compat\"==M.compatMode?parseInt(K.userAgent.VERSION,10):5):void 0;K.userAgent.Yh=L;K.a.ib={Nh:!K.userAgent.Y||K.userAgent.Rb(9),Oh:!K.userAgent.$c&&!K.userAgent.Y||K.userAgent.Y&&K.userAgent.Rb(9)||K.userAgent.$c&&K.userAgent.wa(\"1.9.1\"),Ae:K.userAgent.Y&&!K.userAgent.wa(\"9\"),Ph:K.userAgent.Y||K.userAgent.Qe||K.userAgent.Hb,ei:K.userAgent.Y,Pn:K.userAgent.Y&&!K.userAgent.Rb(9)};K.a.Oc={};K.a.Oc.Ji={area:!0,base:!0,br:!0,col:!0,command:!0,embed:!0,hr:!0,img:!0,input:!0,keygen:!0,link:!0,meta:!0,param:!0,source:!0,track:!0,wbr:!0};K.a.Oc.uk=function(b){return!0===K.a.Oc.Ji[b]};K.b.V=function(){this.Bc=\"\";this.pi=K.b.V.ca};K.b.V.prototype.va=!0;K.b.V.ca={};K.b.V.pc=function(b){b=K.f.H.u(b);return 0===b.length?K.b.V.EMPTY:K.b.V.kd(b)};K.b.V.prototype.ha=G(\"Bc\");K.ea&&(K.b.V.prototype.toString=function(){return\"SafeScript{\"+this.Bc+\"}\"});K.b.V.u=function(b){if(b instanceof K.b.V&&b.constructor===K.b.V&&b.pi===K.b.V.ca)return b.Bc;K.m.ma(\"expected object of type SafeScript, got '\"+b+k+K.aa(b));return\"type_error:SafeScript\"};K.b.V.kd=function(b){return(new K.b.V).cb(b)};\nK.b.V.prototype.cb=function(b){this.Bc=b;return this};K.b.V.EMPTY=K.b.V.kd(\"\");K.ta={};K.ta.url={};K.ta.url.fj=function(b){return K.ta.url.og().createObjectURL(b)};K.ta.url.Vs=function(b){K.ta.url.og().revokeObjectURL(b)};K.ta.url.og=function(){var b=K.ta.url.Hf();if(null!=b)return b;throw Error(\"This browser doesn't seem to support blob URLs\");};K.ta.url.Hf=function(){return K.P(K.global.URL)&&K.P(K.global.URL.createObjectURL)?K.global.URL:K.P(K.global.webkitURL)&&K.P(K.global.webkitURL.createObjectURL)?K.global.webkitURL:K.P(K.global.createObjectURL)?K.global:null};",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.686695"
+    },
+    "30b6c6c9": {
+      "id": "30b6c6c9",
+      "filename": "app/static/loader.js",
+      "vuln_type": "Insecure Randomness",
+      "severity": "MEDIUM",
+      "location": "line 30",
+      "reasoning": "Math.random() is not cryptographically secure",
+      "cwe_id": "CWE-338",
+      "raw_code": "K.aa=function(b){var c=typeof b;if(c==y)if(b){if(b instanceof Array)return r;if(b instanceof Object)return c;var d=Object.prototype.toString.call(b);if(\"[object Window]\"==d)return y;if(\"[object Array]\"==d||typeof b.length==x&&\"undefined\"!=typeof b.splice&&\"undefined\"!=typeof b.propertyIsEnumerable&&!b.propertyIsEnumerable(\"splice\"))return r;if(\"[object Function]\"==d||\"undefined\"!=typeof b.call&&\"undefined\"!=typeof b.propertyIsEnumerable&&!b.propertyIsEnumerable(\"call\"))return u}else return\"null\";\nelse if(c==u&&\"undefined\"==typeof b.call)return y;return c};K.Rr=function(b){return null===b};K.eb=function(b){return null!=b};K.isArray=function(b){return K.aa(b)==r};K.Pb=function(b){var c=K.aa(b);return c==r||c==y&&typeof b.length==x};K.Dr=function(b){return K.ia(b)&&typeof b.getFullYear==u};K.za=function(b){return K.aa(b)==u};K.ia=function(b){var c=typeof b;return c==y&&null!=b||c==u};K.ng=function(b){return b[K.Wa]||(b[K.Wa]=++K.Fl)};K.pr=function(b){return!!b[K.Wa]};\nK.Xk=function(b){null!==b&&\"removeAttribute\"in b&&b.removeAttribute(K.Wa);try{delete b[K.Wa]}catch(c){}};K.Wa=\"closure_uid_\"+(1E9*Math.random()>>>0);K.Fl=0;K.$q=K.ng;K.Os=K.Xk;K.cj=function(b){var c=K.aa(b);if(c==y||c==r){if(b.clone)return b.clone();c=c==r?[]:{};for(var d in b)c[d]=K.cj(b[d]);return c}return b};K.Ui=function(b,c,d){return b.call.apply(b.bind,arguments)};\nK.Ti=function(b,c,d){if(!b)throw Error();if(2<arguments.length){var e=Array.prototype.slice.call(arguments,2);return function(){var d=Array.prototype.slice.call(arguments);Array.prototype.unshift.apply(d,e);return b.apply(c,d)}}return function(){return b.apply(c,arguments)}};K.bind=function(b,c,d){K.bind=Function.prototype.bind&&-1!=Function.prototype.bind.toString().indexOf(\"native code\")?K.Ui:K.Ti;return K.bind.apply(null,arguments)};\nK.fb=function(b,c){var d=Array.prototype.slice.call(arguments,1);return function(){var c=d.slice();c.push.apply(c,arguments);return b.apply(this,c)}};K.os=function(b,c){for(var d in c)b[d]=c[d]};K.now=K.bd&&Date.now||function(){return+new Date};",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.697314"
+    },
+    "4dc56973": {
+      "id": "4dc56973",
+      "filename": "app/static/loader.js",
+      "vuln_type": "Insecure Randomness",
+      "severity": "MEDIUM",
+      "location": "line 56",
+      "reasoning": "Math.random() is not cryptographically secure",
+      "cwe_id": "CWE-338",
+      "raw_code": "K.f.Af=function(b){if(b in K.f.yc)return K.f.yc[b];if(b in K.f.fe)return K.f.yc[b]=K.f.fe[b];var c=b.charCodeAt(0);if(31<c&&127>c)var d=b;else{if(256>c){if(d=\"\\\\x\",16>c||256<c)d+=\"0\"}else d=\"\\\\u\",4096>c&&(d+=\"0\");d+=c.toString(16).toUpperCase()}return K.f.yc[b]=d};K.f.contains=function(b,c){return-1!=b.indexOf(c)};K.f.nf=function(b,c){return K.f.contains(b.toLowerCase(),c.toLowerCase())};K.f.iq=function(b,c){return b&&c?b.split(c).length-1:0};\nK.f.Cb=function(b,c,d){var e=b;0<=c&&c<b.length&&0<d&&(e=b.substr(0,c)+b.substr(c+d,b.length-c-d));return e};K.f.remove=function(b,c){return b.replace(c,\"\")};K.f.Ls=function(b,c){c=new RegExp(K.f.Zd(c),\"g\");return b.replace(c,\"\")};K.f.Rs=function(b,c,d){c=new RegExp(K.f.Zd(c),\"g\");return b.replace(c,d.replace(/\\$/g,\"$$$$\"))};K.f.Zd=function(b){return String(b).replace(/([-()\\[\\]{}+?*.$\\^|,:#<!\\\\])/g,\"\\\\$1\").replace(/\\x08/g,\"\\\\x08\")};\nK.f.repeat=String.prototype.repeat?function(b,c){return b.repeat(c)}:function(b,c){return Array(c+1).join(b)};K.f.Ds=function(b,c,d){b=K.P(d)?b.toFixed(d):String(b);d=b.indexOf(\".\");-1==d&&(d=b.length);return K.f.repeat(\"0\",Math.max(0,c-d))+b};K.f.Mk=function(b){return null==b?\"\":String(b)};K.f.Pp=function(b){return Array.prototype.join.call(arguments,\"\")};K.f.ir=function(){return Math.floor(2147483648*Math.random()).toString(36)+Math.abs(Math.floor(2147483648*Math.random())^K.now()).toString(36)};\nK.f.Jb=function(b,c){var d=0;b=K.f.trim(String(b)).split(\".\");c=K.f.trim(String(c)).split(\".\");for(var e=Math.max(b.length,c.length),f=0;0==d&&f<e;f++){var g=b[f]||\"\",h=c[f]||\"\";do{g=/(\\d*)(\\D*)(.*)/.exec(g)||[\"\",\"\",\"\",\"\"];h=/(\\d*)(\\D*)(.*)/.exec(h)||[\"\",\"\",\"\",\"\"];if(0==g[0].length&&0==h[0].length)break;d=K.f.fd(0==g[1].length?0:parseInt(g[1],10),0==h[1].length?0:parseInt(h[1],10))||K.f.fd(0==g[2].length,0==h[2].length)||K.f.fd(g[2],h[2]);g=g[3];h=h[3]}while(0==d)}return d};\nK.f.fd=function(b,c){return b<c?-1:b>c?1:0};K.f.qr=function(b){for(var c=0,d=0;d<b.length;++d)c=31*c+b.charCodeAt(d)>>>0;return c};K.f.Jl=2147483648*Math.random()|0;K.f.rq=function(){return\"goog_\"+K.f.Jl++};K.f.Nt=function(b){var c=Number(b);return 0==c&&K.f.Kd(b)?NaN:c};K.f.Lr=function(b){return/^[a-z]+([A-Z][a-z]*)*$/.test(b)};K.f.$r=function(b){return/^([A-Z][a-z]*)+$/.test(b)};K.f.Mt=function(b){return String(b).replace(/\\-([a-z])/g,function(b,d){return d.toUpperCase()})};",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.697483"
+    },
+    "0b66ff93": {
+      "id": "0b66ff93",
+      "filename": "app/static/loader.js",
+      "vuln_type": "Insecure Randomness",
+      "severity": "MEDIUM",
+      "location": "line 58",
+      "reasoning": "Math.random() is not cryptographically secure",
+      "cwe_id": "CWE-338",
+      "raw_code": "K.f.repeat=String.prototype.repeat?function(b,c){return b.repeat(c)}:function(b,c){return Array(c+1).join(b)};K.f.Ds=function(b,c,d){b=K.P(d)?b.toFixed(d):String(b);d=b.indexOf(\".\");-1==d&&(d=b.length);return K.f.repeat(\"0\",Math.max(0,c-d))+b};K.f.Mk=function(b){return null==b?\"\":String(b)};K.f.Pp=function(b){return Array.prototype.join.call(arguments,\"\")};K.f.ir=function(){return Math.floor(2147483648*Math.random()).toString(36)+Math.abs(Math.floor(2147483648*Math.random())^K.now()).toString(36)};\nK.f.Jb=function(b,c){var d=0;b=K.f.trim(String(b)).split(\".\");c=K.f.trim(String(c)).split(\".\");for(var e=Math.max(b.length,c.length),f=0;0==d&&f<e;f++){var g=b[f]||\"\",h=c[f]||\"\";do{g=/(\\d*)(\\D*)(.*)/.exec(g)||[\"\",\"\",\"\",\"\"];h=/(\\d*)(\\D*)(.*)/.exec(h)||[\"\",\"\",\"\",\"\"];if(0==g[0].length&&0==h[0].length)break;d=K.f.fd(0==g[1].length?0:parseInt(g[1],10),0==h[1].length?0:parseInt(h[1],10))||K.f.fd(0==g[2].length,0==h[2].length)||K.f.fd(g[2],h[2]);g=g[3];h=h[3]}while(0==d)}return d};\nK.f.fd=function(b,c){return b<c?-1:b>c?1:0};K.f.qr=function(b){for(var c=0,d=0;d<b.length;++d)c=31*c+b.charCodeAt(d)>>>0;return c};K.f.Jl=2147483648*Math.random()|0;K.f.rq=function(){return\"goog_\"+K.f.Jl++};K.f.Nt=function(b){var c=Number(b);return 0==c&&K.f.Kd(b)?NaN:c};K.f.Lr=function(b){return/^[a-z]+([A-Z][a-z]*)*$/.test(b)};K.f.$r=function(b){return/^([A-Z][a-z]*)+$/.test(b)};K.f.Mt=function(b){return String(b).replace(/\\-([a-z])/g,function(b,d){return d.toUpperCase()})};\nK.f.Pt=function(b){return String(b).replace(/([A-Z])/g,\"-$1\").toLowerCase()};K.f.Qt=function(b,c){c=K.L(c)?K.f.Zd(c):\"\\\\s\";return b.replace(new RegExp(\"(^\"+(c?\"|[\"+c+\"]+\":\"\")+\")([a-z])\",\"g\"),function(b,c,f){return c+f.toUpperCase()})};K.f.Tp=function(b){return String(b.charAt(0)).toUpperCase()+String(b.substr(1)).toLowerCase()};K.f.parseInt=function(b){isFinite(b)&&(b=String(b));return K.L(b)?/^\\s*-?0x/i.test(b)?parseInt(b,16):parseInt(b,10):NaN};\nK.f.Dt=function(b,c,d){b=b.split(c);for(var e=[];0<d&&b.length;)e.push(b.shift()),d--;b.length&&e.push(b.join(c));return e};K.f.cs=function(b,c){if(c)typeof c==B&&(c=[c]);else return b;for(var d=-1,e=0;e<c.length;e++)if(\"\"!=c[e]){var f=b.lastIndexOf(c[e]);f>d&&(d=f)}return-1==d?b:b.slice(d+1)};",
+      "validation_status": "CONFIRMED",
+      "poc_code": "// Create a function to predict the value of Math.random()\nfunction predictRandom() {\n  // The vulnerable code uses a seed value of 2147483648\n  var seed = 2147483648;\n  // The algorithm used by Math.random() is based on the XORShift algorithm\n  // We can predict the next value by XORing the current value with the seed\n  var current = Math.floor(seed * Math.random());\n  var next = current ^ seed;\n  return next;\n}\n\n// Create a function to predict the value of K.f.Jl\nfunction predictJl() {\n  // The vulnerable code uses a counter to generate unique IDs\n  // We can predict the next value by incrementing the current value\n  var current = K.f.Jl;\n  var next = current + 1;\n  return next;\n}\n\n// Create a function to exploit the vulnerability\nfunction exploitVulnerability() {\n  // Predict the value of Math.random()\n  var predictedRandom = predictRandom();\n  // Predict the value of K.f.Jl\n  var predictedJl = predictJl();\n  // Use the predicted values to generate a predictable ID\n  var predictableId = \"goog_\" + predictedJl;\n  return predictableId;\n}\n\n// Test the exploit\nconsole.log(exploitVulnerability());",
+      "poc_result": "SANDBOX_ERROR",
+      "classification": {
+        "raw": "Here's the vulnerability classification in JSON format:\n\n```json\n{\n  \"CWE-ID\": \"CWE-338\",\n  \"CWE-Name\": \"Use of Cryptographically Weak Pseudo-Random Number Generator (PRNG)\",\n  \"CVSS-v3.1-Score\": \"5.5\",\n  \"CVSS-v3.1-Vector\": \"CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N\",\n  \"Severity\": \"MEDIUM\",\n  \"Remediation\": {\n    \"Code-Snippet\": \"K.f.ir = function() {\n      return crypto.getRandomValues(new Uint32Array(1))[0].toString(36) +\n             crypto.getRandomValues(new Uint32Array(1))[0].toString(36);\n    }\",\n    \"Explanation\": \"Replace Math.random() with crypto.getRandomValues() to generate cryptographically secure random numbers.\"\n  },\n  \"References\": [\n    {\n      \"Title\": \"OWASP - Insecure Randomness\",\n      \"Link\": \"https://owasp.org/www-project-top-ten/2017/A9_2017-Insecure_Domains_and_Technologies.html\"\n    },\n    {\n      \"Title\": \"NIST - Random Number Generation\",\n      \"Link\": \"https://csrc.nist.gov/publications/detail/sp/800-90a/rev-1/final\"\n    }\n  ]\n}\n```\n\nNote: The remediation code snippet uses the `crypto.getRandomValues()` function, which is available in modern browsers and Node.js environments. If you need to support older environments, you may need to use a different library or implementation."
+      },
+      "remediation": "  \"Remediation\": {\n    \"Code-Snippet\": \"K.f.ir = function() {\n      return crypto.getRandomValues(new Uint32Array(1))[0].toString(36) +\n             crypto.getRandomValues(new Uint32Array(1))[0].toString(36);\n    }\",\n    \"Explanation\": \"Replace Math.random() with crypto.getRandomValues() to generate cryptographically secure random numbers.\"\n  },\n  \"References\": [\n    {\n      \"Title\": \"OWASP - Insecure Randomness\",\n      \"Link\": \"https://owasp.org/www-project-top-ten/2017/A9_2017-Insecure_Domains_and_Technologies.html\"\n    },\n    {\n      \"Title\": \"NIST - Random Number Generation\",\n      \"Link\": \"https://csrc.nist.gov/publications/detail/sp/800-90a/rev-1/final\"\n    }\n  ]\n}\n```\n\nNote: The remediation code snippet uses the `crypto.getRandomValues()` function, which is available in modern browsers and Node.js environments. If you need to support older environments, you may need to use a different library or implementation.",
+      "timestamp": "2026-03-01T16:26:12.697505"
+    },
+    "b1f2be98": {
+      "id": "b1f2be98",
+      "filename": "app/static/loader.js",
+      "vuln_type": "Insecure Randomness",
+      "severity": "MEDIUM",
+      "location": "line 119",
+      "reasoning": "Math.random() is not cryptographically secure",
+      "cwe_id": "CWE-338",
+      "raw_code": "K.g.userAgent.U.Nb=function(){var b=K.g.userAgent.A.wb();if(b){b=K.g.userAgent.A.Df(b);var c=K.g.userAgent.U.Jj(b);if(c)return\"Gecko\"==c[0]?K.g.userAgent.U.Tj(b):c[1];b=b[0];var d;if(b&&(d=b[2])&&(d=/Trident\\/([^\\s;]+)/.exec(d)))return d[1]}return\"\"};K.g.userAgent.U.Jj=function(b){if(!K.g.userAgent.U.Ra())return b[1];for(var c=0;c<b.length;c++){var d=b[c];if(\"Edge\"==d[0])return d}};K.g.userAgent.U.wa=function(b){return 0<=K.f.Jb(K.g.userAgent.U.Nb(),b)};\nK.g.userAgent.U.Tj=function(b){return(b=K.j.find(b,function(b){return\"Firefox\"==b[0]}))&&b[1]||\"\"};K.async.th=function(b){K.global.setTimeout(function(){throw b;},0)};K.async.ra=function(b,c,d){var e=b;c&&(e=K.bind(b,c));e=K.async.ra.Ch(e);K.za(K.global.setImmediate)&&(d||K.async.ra.Nl())?K.global.setImmediate(e):(K.async.ra.nh||(K.async.ra.nh=K.async.ra.Pj()),K.async.ra.nh(e))};K.async.ra.Nl=function(){return K.global.Window&&K.global.Window.prototype&&!K.g.userAgent.v.Ra()&&K.global.Window.prototype.setImmediate==K.global.setImmediate?!1:!0};\nK.async.ra.Pj=function(){var b=K.global.MessageChannel;\"undefined\"===typeof b&&\"undefined\"!==typeof window&&window.postMessage&&window.addEventListener&&!K.g.userAgent.U.nk()&&(b=function(){var b=document.createElement(\"IFRAME\");b.style.display=\"none\";b.src=\"\";document.documentElement.appendChild(b);var c=b.contentWindow;b=c.document;b.open();b.write(\"\");b.close();var d=\"callImmediate\"+Math.random(),e=\"file:\"==c.location.protocol?\"*\":c.location.protocol+\"//\"+c.location.host;b=K.bind(function(b){if((\"*\"==\ne||b.origin==e)&&b.data==d)this.port1.onmessage()},this);c.addEventListener(\"message\",b,!1);this.port1={};this.port2={postMessage:function(){c.postMessage(d,e)}}});if(\"undefined\"!==typeof b&&!K.g.userAgent.v.xc()){var c=new b,d={},e=d;c.port1.onmessage=function(){if(K.P(d.next)){d=d.next;var b=d.pf;d.pf=null;b()}};return function(b){e.next={pf:b};e=e.next;c.port2.postMessage(0)}}return\"undefined\"!==typeof document&&\"onreadystatechange\"in document.createElement(p)?function(b){var c=document.createElement(p);\nc.onreadystatechange=function(){c.onreadystatechange=null;c.parentNode.removeChild(c);c=null;b();b=null};document.documentElement.appendChild(c)}:function(b){K.global.setTimeout(b,0)}};K.async.ra.Ch=K.I.bk;K.debug.Z.register(function(b){K.async.ra.Ch=b});K.async.Ea=function(){this.Sc=this.Fb=null};K.async.Ea.Xc=100;K.async.Ea.Mb=new K.async.bc(function(){return new K.async.cd},function(b){b.reset()},K.async.Ea.Xc);K.async.Ea.prototype.add=function(b,c){var d=K.async.Ea.Mb.get();d.set(b,c);this.Sc?this.Sc.next=d:this.Fb=d;this.Sc=d};K.async.Ea.prototype.remove=function(){var b=null;this.Fb&&(b=this.Fb,this.Fb=this.Fb.next,this.Fb||(this.Sc=null),b.next=null);return b};K.async.cd=function(){this.next=this.scope=this.qd=null};",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.697932"
+    },
+    "10be1b5c": {
+      "id": "10be1b5c",
+      "filename": "app/static/loader.js",
+      "vuln_type": "XSS via innerHTML",
+      "severity": "HIGH",
+      "location": "line 153",
+      "reasoning": "Direct assignment to innerHTML allows XSS",
+      "cwe_id": "CWE-79",
+      "raw_code": "K.b.l.concat=function(b){function c(b){K.isArray(b)?K.j.forEach(b,c):(b=K.b.l.ua(b),e+=K.b.l.u(b),b=b.ab(),d==K.h.i.O.sa?d=b:b!=K.h.i.O.sa&&d!=b&&(d=null))}var d=K.h.i.O.sa,e=\"\";K.j.forEach(arguments,c);return K.b.l.pa(e,d)};K.b.l.fq=function(b,c){var d=K.b.l.concat(K.j.slice(arguments,1));d.nc=b;return d};K.b.l.ca={};K.b.l.pa=function(b,c){return(new K.b.l).cb(b,c)};K.b.l.prototype.cb=function(b,c){this.Ga=b;this.nc=c;return this};\nK.b.l.Za=function(b,c,d){var e=null;var f=\"<\"+b+K.b.l.xl(b,c);K.eb(d)?K.isArray(d)||(d=[d]):d=[];K.a.Oc.uk(b.toLowerCase())?f+=\">\":(e=K.b.l.concat(d),f+=\">\"+K.b.l.u(e)+\"</\"+b+\">\",e=e.ab());(b=c&&c.dir)&&(e=/^(ltr|rtl|auto)$/i.test(b)?K.h.i.O.sa:null);return K.b.l.pa(f,e)};K.b.l.xl=function(b,c){var d=\"\";if(c)for(var e in c){if(!K.b.l.bf.test(e))throw Error('Invalid attribute name \"'+e+'\".');var f=c[e];K.eb(f)&&(d+=\" \"+K.b.l.Ej(b,e,f))}return d};\nK.b.l.kc=function(b,c,d){var e={},f;for(f in b)e[f]=b[f];for(f in c)e[f]=c[f];for(f in d){var g=f.toLowerCase();if(g in b)throw Error('Cannot override \"'+g+'\" attribute, got \"'+f+'\" with value \"'+d[f]+'\"');g in c&&delete e[g];e[f]=d[f]}return e};K.b.l.Tm=K.b.l.pa(\"<!DOCTYPE html>\",K.h.i.O.sa);K.b.l.EMPTY=K.b.l.pa(\"\",K.h.i.O.sa);K.b.l.ze=K.b.l.pa(\"<br>\",K.h.i.O.sa);K.a.S={};K.a.S.Ln={bm:\"afterbegin\",cm:\"afterend\",rm:\"beforebegin\",sm:\"beforeend\"};K.a.S.ur=function(b,c,d){b.insertAdjacentHTML(c,K.b.l.u(d))};K.a.S.wi={MATH:!0,SCRIPT:!0,STYLE:!0,SVG:!0,TEMPLATE:!0};K.a.S.oh=function(b,c){if(K.m.oa&&K.a.S.wi[b.tagName.toUpperCase()])throw Error(\"goog.dom.safe.setInnerHtml cannot be used to set content of \"+b.tagName+\".\");b.innerHTML=K.b.l.u(c)};K.a.S.tt=function(b,c){b.outerHTML=K.b.l.u(c)};K.a.S.wt=function(b,c){b.style.cssText=K.b.F.u(c)};K.a.S.yq=function(b,c){b.write(K.b.l.u(c))};\nK.a.S.ft=function(b,c){c=c instanceof K.b.o?c:K.b.o.Yb(c);b.href=K.b.o.u(c)};K.a.S.pt=function(b,c){c=c instanceof K.b.o?c:K.b.o.Yb(c);b.src=K.b.o.u(c)};K.a.S.jt=function(b,c){b.src=K.b.C.u(c)};K.a.S.lt=function(b,c){b.src=K.b.C.u(c)};K.a.S.nt=function(b,c){b.src=K.b.C.u(c)};K.a.S.ot=function(b,c){b.srcdoc=K.b.l.u(c)};K.a.S.qt=function(b,c,d){b.rel=d;K.f.nf(d,\"stylesheet\")?b.href=K.b.C.u(c):b.href=c instanceof K.b.C?K.b.C.u(c):c instanceof K.b.o?K.b.o.u(c):K.b.o.Yb(c).ha()};\nK.a.S.st=function(b,c){b.data=K.b.C.u(c)};K.a.S.ql=function(b,c){b.src=K.b.C.u(c)};K.a.S.vt=function(b,c){b.text=K.b.V.u(c)};K.a.S.rt=function(b,c){c=c instanceof K.b.o?c:K.b.o.Yb(c);b.href=K.b.o.u(c)};K.a.S.Bs=function(b,c,d,e,f){b=b instanceof K.b.o?b:K.b.o.Yb(b);return(c||window).open(K.b.o.u(b),d?K.f.H.u(d):\"\",e,f)};K.b.hb={};K.b.hb.il=function(b,c){return K.b.l.pa(c,null)};K.b.hb.Zs=function(b,c){return K.b.V.kd(c)};K.b.hb.at=function(b,c){return K.b.F.qb(c)};K.b.hb.ct=function(b,c){return K.b.M.rb(c)};K.b.hb.et=function(b,c){return K.b.o.ya(c)};K.b.hb.Ut=function(b,c){return K.b.C.sb(c)};K.s={};K.s.Hs=function(b){return Math.floor(Math.random()*b)};K.s.Wt=function(b,c){return b+Math.random()*(c-b)};K.s.Yp=function(b,c,d){return Math.min(Math.max(b,c),d)};K.s.Yg=function(b,c){b%=c;return 0>b*c?b+c:b};K.s.ds=function(b,c,d){return b+d*(c-b)};K.s.rs=function(b,c,d){return Math.abs(b-c)<=(d||1E-6)};K.s.he=function(b){return K.s.Yg(b,360)};K.s.Gt=function(b){return K.s.Yg(b,2*Math.PI)};K.s.wh=function(b){return b*Math.PI/180};K.s.Cl=function(b){return 180*b/Math.PI};",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.699715"
+    },
+    "4e71f6dc": {
+      "id": "4e71f6dc",
+      "filename": "app/static/loader.js",
+      "vuln_type": "Command Injection",
+      "severity": "CRITICAL",
+      "location": "line 131",
+      "reasoning": "child_process execution with potentially untrusted input",
+      "cwe_id": "CWE-78",
+      "raw_code": "K.userAgent.Uj=function(){var b=K.userAgent.Sj();if(K.userAgent.$c)return/rv\\:([^\\);]+)(\\)|;)/.exec(b);if(K.userAgent.Fe)return/Edge\\/([\\d\\.]+)/.exec(b);if(K.userAgent.Y)return/\\b(?:MSIE|rv)[: ]([^\\);]+)(\\)|;)/.exec(b);if(K.userAgent.Hb)return/WebKit\\/(\\S+)/.exec(b);if(K.userAgent.Qe)return/(?:Version)[ \\/]?(\\S+)/.exec(b)};K.userAgent.Rf=function(){var b=K.global.document;return b?b.documentMode:void 0};K.userAgent.VERSION=K.userAgent.qj();K.userAgent.compare=function(b,c){return K.f.Jb(b,c)};\nK.userAgent.tk={};K.userAgent.wa=function(b){return K.userAgent.Hh||K.Ha.cache(K.userAgent.tk,b,function(){return 0<=K.f.Jb(K.userAgent.VERSION,b)})};K.userAgent.as=K.userAgent.wa;K.userAgent.Rb=function(b){return Number(K.userAgent.Yh)>=b};K.userAgent.Er=K.userAgent.Rb;var L;var M=K.global.document,aa=K.userAgent.Rf();L=M&&K.userAgent.Y?aa||(\"CSS1Compat\"==M.compatMode?parseInt(K.userAgent.VERSION,10):5):void 0;K.userAgent.Yh=L;K.a.ib={Nh:!K.userAgent.Y||K.userAgent.Rb(9),Oh:!K.userAgent.$c&&!K.userAgent.Y||K.userAgent.Y&&K.userAgent.Rb(9)||K.userAgent.$c&&K.userAgent.wa(\"1.9.1\"),Ae:K.userAgent.Y&&!K.userAgent.wa(\"9\"),Ph:K.userAgent.Y||K.userAgent.Qe||K.userAgent.Hb,ei:K.userAgent.Y,Pn:K.userAgent.Y&&!K.userAgent.Rb(9)};K.a.Oc={};K.a.Oc.Ji={area:!0,base:!0,br:!0,col:!0,command:!0,embed:!0,hr:!0,img:!0,input:!0,keygen:!0,link:!0,meta:!0,param:!0,source:!0,track:!0,wbr:!0};K.a.Oc.uk=function(b){return!0===K.a.Oc.Ji[b]};K.b.V=function(){this.Bc=\"\";this.pi=K.b.V.ca};K.b.V.prototype.va=!0;K.b.V.ca={};K.b.V.pc=function(b){b=K.f.H.u(b);return 0===b.length?K.b.V.EMPTY:K.b.V.kd(b)};K.b.V.prototype.ha=G(\"Bc\");K.ea&&(K.b.V.prototype.toString=function(){return\"SafeScript{\"+this.Bc+\"}\"});K.b.V.u=function(b){if(b instanceof K.b.V&&b.constructor===K.b.V&&b.pi===K.b.V.ca)return b.Bc;K.m.ma(\"expected object of type SafeScript, got '\"+b+k+K.aa(b));return\"type_error:SafeScript\"};K.b.V.kd=function(b){return(new K.b.V).cb(b)};\nK.b.V.prototype.cb=function(b){this.Bc=b;return this};K.b.V.EMPTY=K.b.V.kd(\"\");K.ta={};K.ta.url={};K.ta.url.fj=function(b){return K.ta.url.og().createObjectURL(b)};K.ta.url.Vs=function(b){K.ta.url.og().revokeObjectURL(b)};K.ta.url.og=function(){var b=K.ta.url.Hf();if(null!=b)return b;throw Error(\"This browser doesn't seem to support blob URLs\");};K.ta.url.Hf=function(){return K.P(K.global.URL)&&K.P(K.global.URL.createObjectURL)?K.global.URL:K.P(K.global.webkitURL)&&K.P(K.global.webkitURL.createObjectURL)?K.global.webkitURL:K.P(K.global.createObjectURL)?K.global:null};",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.701114"
+    },
+    "001ba74e": {
+      "id": "001ba74e",
+      "filename": "app/static/loader.js",
+      "vuln_type": "Insecure Randomness",
+      "severity": "MEDIUM",
+      "location": "line 155",
+      "reasoning": "Math.random() is not cryptographically secure",
+      "cwe_id": "CWE-338",
+      "raw_code": "K.b.l.kc=function(b,c,d){var e={},f;for(f in b)e[f]=b[f];for(f in c)e[f]=c[f];for(f in d){var g=f.toLowerCase();if(g in b)throw Error('Cannot override \"'+g+'\" attribute, got \"'+f+'\" with value \"'+d[f]+'\"');g in c&&delete e[g];e[f]=d[f]}return e};K.b.l.Tm=K.b.l.pa(\"<!DOCTYPE html>\",K.h.i.O.sa);K.b.l.EMPTY=K.b.l.pa(\"\",K.h.i.O.sa);K.b.l.ze=K.b.l.pa(\"<br>\",K.h.i.O.sa);K.a.S={};K.a.S.Ln={bm:\"afterbegin\",cm:\"afterend\",rm:\"beforebegin\",sm:\"beforeend\"};K.a.S.ur=function(b,c,d){b.insertAdjacentHTML(c,K.b.l.u(d))};K.a.S.wi={MATH:!0,SCRIPT:!0,STYLE:!0,SVG:!0,TEMPLATE:!0};K.a.S.oh=function(b,c){if(K.m.oa&&K.a.S.wi[b.tagName.toUpperCase()])throw Error(\"goog.dom.safe.setInnerHtml cannot be used to set content of \"+b.tagName+\".\");b.innerHTML=K.b.l.u(c)};K.a.S.tt=function(b,c){b.outerHTML=K.b.l.u(c)};K.a.S.wt=function(b,c){b.style.cssText=K.b.F.u(c)};K.a.S.yq=function(b,c){b.write(K.b.l.u(c))};\nK.a.S.ft=function(b,c){c=c instanceof K.b.o?c:K.b.o.Yb(c);b.href=K.b.o.u(c)};K.a.S.pt=function(b,c){c=c instanceof K.b.o?c:K.b.o.Yb(c);b.src=K.b.o.u(c)};K.a.S.jt=function(b,c){b.src=K.b.C.u(c)};K.a.S.lt=function(b,c){b.src=K.b.C.u(c)};K.a.S.nt=function(b,c){b.src=K.b.C.u(c)};K.a.S.ot=function(b,c){b.srcdoc=K.b.l.u(c)};K.a.S.qt=function(b,c,d){b.rel=d;K.f.nf(d,\"stylesheet\")?b.href=K.b.C.u(c):b.href=c instanceof K.b.C?K.b.C.u(c):c instanceof K.b.o?K.b.o.u(c):K.b.o.Yb(c).ha()};\nK.a.S.st=function(b,c){b.data=K.b.C.u(c)};K.a.S.ql=function(b,c){b.src=K.b.C.u(c)};K.a.S.vt=function(b,c){b.text=K.b.V.u(c)};K.a.S.rt=function(b,c){c=c instanceof K.b.o?c:K.b.o.Yb(c);b.href=K.b.o.u(c)};K.a.S.Bs=function(b,c,d,e,f){b=b instanceof K.b.o?b:K.b.o.Yb(b);return(c||window).open(K.b.o.u(b),d?K.f.H.u(d):\"\",e,f)};K.b.hb={};K.b.hb.il=function(b,c){return K.b.l.pa(c,null)};K.b.hb.Zs=function(b,c){return K.b.V.kd(c)};K.b.hb.at=function(b,c){return K.b.F.qb(c)};K.b.hb.ct=function(b,c){return K.b.M.rb(c)};K.b.hb.et=function(b,c){return K.b.o.ya(c)};K.b.hb.Ut=function(b,c){return K.b.C.sb(c)};K.s={};K.s.Hs=function(b){return Math.floor(Math.random()*b)};K.s.Wt=function(b,c){return b+Math.random()*(c-b)};K.s.Yp=function(b,c,d){return Math.min(Math.max(b,c),d)};K.s.Yg=function(b,c){b%=c;return 0>b*c?b+c:b};K.s.ds=function(b,c,d){return b+d*(c-b)};K.s.rs=function(b,c,d){return Math.abs(b-c)<=(d||1E-6)};K.s.he=function(b){return K.s.Yg(b,360)};K.s.Gt=function(b){return K.s.Yg(b,2*Math.PI)};K.s.wh=function(b){return b*Math.PI/180};K.s.Cl=function(b){return 180*b/Math.PI};\nK.s.pp=function(b,c){return c*Math.cos(K.s.wh(b))};K.s.qp=function(b,c){return c*Math.sin(K.s.wh(b))};K.s.angle=function(b,c,d,e){return K.s.he(K.s.Cl(Math.atan2(e-c,d-b)))};K.s.op=function(b,c){b=K.s.he(c)-K.s.he(b);180<b?b-=360:-180>=b&&(b=360+b);return b};K.s.sign=function(b){return 0<b?1:0>b?-1:b};\nK.s.js=function(b,c,d,e){d=d||function(b,c){return b==c};e=e||function(c){return b[c]};for(var f=b.length,g=c.length,h=[],l=0;l<f+1;l++)h[l]=[],h[l][0]=0;for(var m=0;m<g+1;m++)h[0][m]=0;for(l=1;l<=f;l++)for(m=1;m<=g;m++)d(b[l-1],c[m-1])?h[l][m]=h[l-1][m-1]+1:h[l][m]=Math.max(h[l-1][m],h[l][m-1]);var q=[];l=f;for(m=g;0<l&&0<m;)d(b[l-1],c[m-1])?(q.unshift(e(l-1,m-1)),l--,m--):h[l-1][m]>h[l][m-1]?l--:m--;return q};K.s.ie=function(b){return K.j.reduce(arguments,function(b,d){return b+d},0)};",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.709232"
+    },
+    "91543265": {
+      "id": "91543265",
+      "filename": "tests/e2e_zap.py",
+      "vuln_type": "SSL Verification Disabled",
+      "severity": "HIGH",
+      "location": "line 18",
+      "reasoning": "SSL certificate verification explicitly disabled",
+      "cwe_id": "CWE-295",
+      "raw_code": "\nlogin = requests.post(target_url + '/login',\n                      proxies=proxies, json=auth_dict, verify=False)\n\n",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.711519"
+    },
+    "7f486fe7": {
+      "id": "7f486fe7",
+      "filename": "tests/e2e_zap.py",
+      "vuln_type": "SSL Verification Disabled",
+      "severity": "HIGH",
+      "location": "line 29",
+      "reasoning": "SSL certificate verification explicitly disabled",
+      "cwe_id": "CWE-295",
+      "raw_code": "\n    get_cust_id = requests.get(\n        target_url + '/get/2', proxies=proxies, headers=auth_header, verify=False)\n    if get_cust_id.status_code == 200:\n        print(\"Get Customer by ID Response\")",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.711545"
+    },
+    "a5e46180": {
+      "id": "a5e46180",
+      "filename": "tests/e2e_zap.py",
+      "vuln_type": "SSL Verification Disabled",
+      "severity": "HIGH",
+      "location": "line 37",
+      "reasoning": "SSL certificate verification explicitly disabled",
+      "cwe_id": "CWE-295",
+      "raw_code": "    post = {'id': 2}\n    fetch_customer_post = requests.post(\n        target_url + '/fetch/customer', json=post, proxies=proxies, headers=auth_header, verify=False)\n    if fetch_customer_post.status_code == 200:\n        print(\"Fetch Customer POST Response\")",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.711566"
+    },
+    "1ec420b5": {
+      "id": "1ec420b5",
+      "filename": "tests/e2e_zap.py",
+      "vuln_type": "SSL Verification Disabled",
+      "severity": "HIGH",
+      "location": "line 45",
+      "reasoning": "SSL certificate verification explicitly disabled",
+      "cwe_id": "CWE-295",
+      "raw_code": "    search = {'search': 'dleon'}\n    search_customer_username = requests.post(\n        target_url + '/search', json=search, proxies=proxies, headers=auth_header, verify=False)\n    if search_customer_username.status_code == 200:\n        print(\"Search Customer POST Response\")",
+      "validation_status": "FALSE_POSITIVE",
+      "poc_code": "",
+      "poc_result": "",
+      "classification": {},
+      "remediation": "",
+      "timestamp": "2026-03-01T16:26:12.711587"
+    }
+  },
+  "dependency_graph": {
+    "backports-abc": {
+      "version": "0.5",
+      "ecosystem": "pypi"
+    },
+    "certifi": {
+      "version": "2017.4.17",
+      "ecosystem": "pypi"
+    },
+    "chardet": {
+      "version": "3.0.4",
+      "ecosystem": "pypi"
+    },
+    "click": {
+      "version": "6.7",
+      "ecosystem": "pypi"
+    },
+    "Faker": {
+      "version": "0.7.17",
+      "ecosystem": "pypi"
+    },
+    "Flask": {
+      "version": "0.12.2",
+      "ecosystem": "pypi"
+    },
+    "Flask-SQLAlchemy": {
+      "version": "2.2",
+      "ecosystem": "pypi"
+    },
+    "gevent": {
+      "version": "1.2.2",
+      "ecosystem": "pypi"
+    },
+    "greenlet": {
+      "version": "0.4.12",
+      "ecosystem": "pypi"
+    },
+    "grequests": {
+      "version": "0.3.0",
+      "ecosystem": "pypi"
+    },
+    "idna": {
+      "version": "2.5",
+      "ecosystem": "pypi"
+    },
+    "ipaddress": {
+      "version": "1.0.18",
+      "ecosystem": "pypi"
+    },
+    "itsdangerous": {
+      "version": "0.24",
+      "ecosystem": "pypi"
+    },
+    "Jinja2": {
+      "version": "2.9.6",
+      "ecosystem": "pypi"
+    },
+    "lxml": {
+      "version": "4.2.1",
+      "ecosystem": "pypi"
+    },
+    "MarkupSafe": {
+      "version": "1.0",
+      "ecosystem": "pypi"
+    },
+    "MySQL-python": {
+      "version": "1.2.5",
+      "ecosystem": "pypi"
+    },
+    "PyJWT": {
+      "version": "1.5.2",
+      "ecosystem": "pypi"
+    },
+    "python-dateutil": {
+      "version": "2.6.0",
+      "ecosystem": "pypi"
+    },
+    "python-docx": {
+      "version": "0.8.5",
+      "ecosystem": "pypi"
+    },
+    "PyYAML": {
+      "version": "3.12",
+      "ecosystem": "pypi"
+    },
+    "requests": {
+      "version": "2.18.1",
+      "ecosystem": "pypi"
+    },
+    "singledispatch": {
+      "version": "3.4.0.3",
+      "ecosystem": "pypi"
+    },
+    "six": {
+      "version": "1.10.0",
+      "ecosystem": "pypi"
+    },
+    "SQLAlchemy": {
+      "version": "1.1.11",
+      "ecosystem": "pypi"
+    },
+    "tornado": {
+      "version": "4.5.1",
+      "ecosystem": "pypi"
+    },
+    "urllib3": {
+      "version": "1.21.1",
+      "ecosystem": "pypi"
+    },
+    "Werkzeug": {
+      "version": "0.14.1",
+      "ecosystem": "pypi"
+    }
+  },
+  "known_cves": {
+    "backports-abc": [],
+    "certifi": [
+      {
+        "id": "GHSA-xqr8-7jwr-rhp7",
+        "summary": "Removal of e-Tugra root certificate",
+        "severity": "HIGH"
+      },
+      {
+        "id": "PYSEC-2023-135",
+        "summary": "",
+        "severity": "UNKNOWN"
+      }
+    ],
+    "chardet": [],
+    "click": [],
+    "Faker": [],
+    "Flask": [
+      {
+        "id": "GHSA-562c-5r94-xh97",
+        "summary": "Flask is vulnerable to Denial of Service via incorrect encoding of JSON data",
+        "severity": "HIGH"
+      },
+      {
+        "id": "GHSA-5wv5-4vpf-pj6m",
+        "summary": "Pallets Project Flask is vulnerable to Denial of Service via Unexpected memory usage",
+        "severity": "HIGH"
+      },
+      {
+        "id": "GHSA-68rp-wp8r-4726",
+        "summary": "Flask session does not add `Vary: Cookie` header when accessed in some ways",
+        "severity": "LOW"
+      },
+      {
+        "id": "GHSA-m2qf-hxjv-5gpq",
+        "summary": "Flask vulnerable to possible disclosure of permanent session cookie due to missing Vary: Cookie header",
+        "severity": "HIGH"
+      },
+      {
+        "id": "PYSEC-2018-66",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2019-179",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2023-62",
+        "summary": "",
+        "severity": "UNKNOWN"
+      }
+    ],
+    "Flask-SQLAlchemy": [],
+    "gevent": [
+      {
+        "id": "GHSA-x7m3-jprg-wc5g",
+        "summary": "Gevent allows remote attacker to escalate privileges",
+        "severity": "CRITICAL"
+      },
+      {
+        "id": "PYSEC-2023-177",
+        "summary": "",
+        "severity": "UNKNOWN"
+      }
+    ],
+    "greenlet": [],
+    "grequests": [],
+    "idna": [
+      {
+        "id": "GHSA-jjg7-2v4v-x38h",
+        "summary": "Internationalized Domain Names in Applications (IDNA) vulnerable to denial of service from specially crafted inputs to idna.encode",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "PYSEC-2024-60",
+        "summary": "",
+        "severity": "UNKNOWN"
+      }
+    ],
+    "ipaddress": [],
+    "itsdangerous": [],
+    "Jinja2": [
+      {
+        "id": "GHSA-462w-v97r-4m45",
+        "summary": "Jinja2 sandbox escape via string formatting",
+        "severity": "HIGH"
+      },
+      {
+        "id": "GHSA-cpwx-vrp4-4pq7",
+        "summary": "Jinja2 vulnerable to sandbox breakout through attr filter selecting format method",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-g3rq-g295-4j3m",
+        "summary": "Regular Expression Denial of Service (ReDoS) in Jinja2",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-h5c8-rqwp-cp95",
+        "summary": "Jinja vulnerable to HTML attribute injection when passing user input as keys to xmlattr filter",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-h75v-3vvj-5mfj",
+        "summary": "Jinja vulnerable to HTML attribute injection when passing user input as keys to xmlattr filter",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-q2x7-8rv6-6q7h",
+        "summary": "Jinja has a sandbox breakout through indirect reference to format method",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "PYSEC-2019-217",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2021-66",
+        "summary": "",
+        "severity": "UNKNOWN"
+      }
+    ],
+    "lxml": [
+      {
+        "id": "GHSA-55x5-fj6c-h6m8",
+        "summary": "lxml's HTML Cleaner allows crafted and SVG embedded scripts to pass through",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-jq4v-f5q6-mjqq",
+        "summary": "lxml vulnerable to Cross-Site Scripting ",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-pgww-xf46-h92r",
+        "summary": "lxml vulnerable to Cross-site Scripting",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-wrxv-2j5q-m38w",
+        "summary": "lxml NULL Pointer Dereference allows attackers to cause a denial of service",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-xp26-p53h-6h2p",
+        "summary": "Improper Neutralization of Input During Web Page Generation in LXML",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "PYSEC-2018-12",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2020-62",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2021-19",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2022-230",
+        "summary": "",
+        "severity": "UNKNOWN"
+      }
+    ],
+    "MarkupSafe": [],
+    "MySQL-python": [],
+    "PyJWT": [
+      {
+        "id": "GHSA-ffqj-6fqr-9h24",
+        "summary": "Key confusion through non-blocklisted public key formats",
+        "severity": "HIGH"
+      },
+      {
+        "id": "PYSEC-2022-202",
+        "summary": "",
+        "severity": "UNKNOWN"
+      }
+    ],
+    "python-dateutil": [],
+    "python-docx": [
+      {
+        "id": "GHSA-34wj-p5jm-2p96",
+        "summary": "Improper Restriction of XML External Entity Reference in python-docx",
+        "severity": "HIGH"
+      },
+      {
+        "id": "PYSEC-2016-21",
+        "summary": "",
+        "severity": "UNKNOWN"
+      }
+    ],
+    "PyYAML": [
+      {
+        "id": "GHSA-8q59-q68h-6hv4",
+        "summary": "Improper Input Validation in PyYAML",
+        "severity": "CRITICAL"
+      },
+      {
+        "id": "GHSA-rprw-h62v-c2w7",
+        "summary": "PyYAML insecurely deserializes YAML strings leading to arbitrary code execution",
+        "severity": "CRITICAL"
+      },
+      {
+        "id": "PYSEC-2018-49",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2021-142",
+        "summary": "",
+        "severity": "UNKNOWN"
+      }
+    ],
+    "requests": [
+      {
+        "id": "GHSA-9hjg-9r4m-mvj7",
+        "summary": "Requests vulnerable to .netrc credentials leak via malicious URLs",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-9wx4-h78v-vm56",
+        "summary": "Requests `Session` object does not verify requests after making first request with verify=False",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-j8r2-6x86-q33q",
+        "summary": "Unintended leak of Proxy-Authorization header in requests",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-x84v-xcm2-53pg",
+        "summary": "Insufficiently Protected Credentials in Requests",
+        "severity": "HIGH"
+      },
+      {
+        "id": "PYSEC-2018-28",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2023-74",
+        "summary": "",
+        "severity": "UNKNOWN"
+      }
+    ],
+    "singledispatch": [],
+    "six": [],
+    "SQLAlchemy": [
+      {
+        "id": "GHSA-38fc-9xqv-7f7q",
+        "summary": "SQLAlchemy is vulnerable to SQL Injection via group_by parameter ",
+        "severity": "CRITICAL"
+      },
+      {
+        "id": "GHSA-887w-45rq-vxgf",
+        "summary": "SQLAlchemy vulnerable to SQL Injection via order_by parameter",
+        "severity": "CRITICAL"
+      },
+      {
+        "id": "PYSEC-2019-123",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2019-124",
+        "summary": "",
+        "severity": "UNKNOWN"
+      }
+    ],
+    "tornado": [
+      {
+        "id": "GHSA-753j-mpmx-qq6g",
+        "summary": "Inconsistent Interpretation of HTTP Requests ('HTTP Request/Response Smuggling') in tornado",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-7cx3-6m66-7c5m",
+        "summary": "Tornado vulnerable to excessive logging caused by malformed multipart form data",
+        "severity": "HIGH"
+      },
+      {
+        "id": "GHSA-8w49-h785-mj3c",
+        "summary": "Tornado has an HTTP cookie parsing DoS vulnerability",
+        "severity": "HIGH"
+      },
+      {
+        "id": "GHSA-hj3f-6gcp-jg8j",
+        "summary": "Open redirect in Tornado",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-qppv-j76h-2rpx",
+        "summary": "Tornado vulnerable to HTTP request smuggling via improper parsing of `Content-Length` fields and chunk lengths",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-w235-7p84-xx57",
+        "summary": "Tornado has a CRLF injection in CurlAsyncHTTPClient headers",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "PYSEC-2023-75",
+        "summary": "",
+        "severity": "UNKNOWN"
+      }
+    ],
+    "urllib3": [
+      {
+        "id": "GHSA-2xpw-w6gg-jr37",
+        "summary": "urllib3 streaming API improperly handles highly compressed data",
+        "severity": "HIGH"
+      },
+      {
+        "id": "GHSA-34jh-p97f-mpxf",
+        "summary": "urllib3's Proxy-Authorization request header isn't stripped during cross-origin redirects",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-g4mx-q9vg-27p4",
+        "summary": "urllib3's request body not stripped after redirect from 303 status changes request method to GET",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-gwvm-45gx-3cf8",
+        "summary": "Authorization Header forwarded on redirect",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-mh33-7rrq-662w",
+        "summary": "Improper Certificate Validation in urllib3",
+        "severity": "HIGH"
+      },
+      {
+        "id": "GHSA-pq67-6m6q-mj2v",
+        "summary": "urllib3 redirects are not disabled when retries are disabled on PoolManager instantiation",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-r64q-w8jr-g9qp",
+        "summary": "Improper Neutralization of CRLF Sequences in urllib3 library for Python",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-v845-jxx5-vc9f",
+        "summary": "`Cookie` HTTP header isn't stripped on cross-origin redirects",
+        "severity": "HIGH"
+      },
+      {
+        "id": "GHSA-wqvq-5m8c-6g24",
+        "summary": "CRLF injection in urllib3",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-www2-v7xj-xrc6",
+        "summary": "Exposure of Sensitive Information to an Unauthorized Actor in urllib3",
+        "severity": "CRITICAL"
+      },
+      {
+        "id": "PYSEC-2018-32",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2019-132",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2019-133",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2020-148",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2021-108",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2023-192",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2023-207",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2023-212",
+        "summary": "",
+        "severity": "UNKNOWN"
+      }
+    ],
+    "Werkzeug": [
+      {
+        "id": "GHSA-29vq-49wr-vm6x",
+        "summary": " Werkzeug safe_join() allows Windows special device names",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-2g68-c3qc-8985",
+        "summary": "Werkzeug debugger vulnerable to remote execution when interacting with attacker controlled domain",
+        "severity": "HIGH"
+      },
+      {
+        "id": "GHSA-87hc-h4r5-73f7",
+        "summary": " Werkzeug safe_join() allows Windows special device names with compound extensions",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-f9vj-2wh5-fj8j",
+        "summary": "Werkzeug safe_join not safe on Windows",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-gq9m-qvpx-68hc",
+        "summary": "Pallets Werkzeug Insufficient Entropy",
+        "severity": "HIGH"
+      },
+      {
+        "id": "GHSA-hgf8-39gv-g3f2",
+        "summary": "Werkzeug safe_join() allows Windows special device names",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-hrfv-mqp8-q5rw",
+        "summary": "Werkzeug DoS: High resource usage when parsing multipart/form-data containing a large part with CR/LF character at the beginning",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-j544-7q9p-6xp8",
+        "summary": "Pallets Werkzeug vulnerable to Path Traversal",
+        "severity": "HIGH"
+      },
+      {
+        "id": "GHSA-px8h-6qxv-m22q",
+        "summary": "Incorrect parsing of nameless cookies leads to __Host- cookies bypass",
+        "severity": "LOW"
+      },
+      {
+        "id": "GHSA-q34m-jh98-gwm2",
+        "summary": "Werkzeug possible resource exhaustion when parsing file data in forms",
+        "severity": "MODERATE"
+      },
+      {
+        "id": "GHSA-xg9f-g7g7-2323",
+        "summary": "High resource usage when parsing multipart form data with many fields",
+        "severity": "HIGH"
+      },
+      {
+        "id": "PYSEC-2019-140",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2022-203",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2023-221",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2023-57",
+        "summary": "",
+        "severity": "UNKNOWN"
+      },
+      {
+        "id": "PYSEC-2023-58",
+        "summary": "",
+        "severity": "UNKNOWN"
+      }
+    ]
+  }
+}
