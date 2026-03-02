@@ -3,6 +3,9 @@
 LLM-powered code security auditing using NVIDIA NIM + free open-source safety stack.
 Replaces NeMo with NIM (free tier) + LLM Guard + Guardrails AI.
 
+<img width="1631" height="962" alt="image" src="https://github.com/user-attachments/assets/d40cbc75-fc4f-482b-8960-3c3f9c6c827a" />
+
+
 ## Architecture
 
 ```
